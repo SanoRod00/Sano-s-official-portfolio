@@ -1,12 +1,10 @@
-import { Button } from "@/components/Button";
-import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
-  { href: "#testimonials", label: "Testimonials" },
+  { href: "/#about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#testimonials", label: "Testimonials" },
 ];
 
 export const Navbar = () => {
@@ -57,15 +55,15 @@ export const Navbar = () => {
             <ul className="flex items-center gap-8">
               {navLinks.map((link, index) => (
                 <li key={index}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="group relative px-2 py-1 text-base font-bold text-foreground/80 hover:text-primary transition-colors duration-300"
                   >
                     {link.label}
                     {/* Hover Animation - Expanding Pillar/Underline */}
                     <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-primary via-purple-400 to-primary origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full" />
                     <span className="absolute inset-0 bg-primary/5 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-lg -z-10" />
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
