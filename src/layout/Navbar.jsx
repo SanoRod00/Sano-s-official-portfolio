@@ -45,9 +45,9 @@ export const Navbar = () => {
         <nav
           className={`
             relative flex items-center justify-between w-full max-w-5xl
-            backdrop-blur-xl border border-white/10 shadow-lg rounded-full
+            backdrop-blur-xl border border-border/40 shadow-lg rounded-full
             transition-all duration-300
-            ${isScrolled ? "bg-black/80 py-2.5 px-4" : "bg-black/50 py-3 px-6"}
+            ${isScrolled ? "bg-white/80 py-2.5 px-4" : "bg-white/30 py-3 px-6"}
             ${isMobileMenuOpen ? "rounded-2xl" : "rounded-full"}
           `}
           aria-label="Main Navigation"

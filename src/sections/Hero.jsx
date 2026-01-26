@@ -8,6 +8,7 @@ import {
   Download,
 } from "lucide-react";
 import { AnimatedBorderButton } from "../components/AnimatedBorderButton";
+import { motion } from "framer-motion";
 
 const skills = [
   "React",
@@ -38,7 +39,7 @@ export const Hero = () => {
         <img
           src="/hero-bg.jpg"
           alt="Hero image"
-          className="w-full h-full object-cover opacity-40"
+          className="w-full h-full object-cover opacity-10"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/80 to-background" />
       </div>
@@ -49,12 +50,11 @@ export const Hero = () => {
           <div
             className="absolute w-1.5 h-1.5 rounded-full opacity-60"
             style={{
-              backgroundColor: "#20B2A6",
+              backgroundColor: "#b39cd0",
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animation: `slow-drift ${
-                15 + Math.random() * 20
-              }s ease-in-out infinite`,
+              animation: `slow-drift ${15 + Math.random() * 20
+                }s ease-in-out infinite`,
               animationDelay: `${Math.random() * 5}s`,
             }}
           />
@@ -67,7 +67,7 @@ export const Hero = () => {
           {/* Left Column - Text Content */}
           <div className="space-y-8">
             <div className="animate-fade-in">
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary font-medium">
                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                 Software Engineer • React Specialist
               </span>
@@ -80,7 +80,7 @@ export const Hero = () => {
                 <br />
                 experiences with
                 <br />
-                <span className="font-serif italic font-normal text-white">
+                <span className="font-serif italic font-normal text-foreground">
                   precision.
                 </span>
               </h1>
@@ -113,7 +113,7 @@ export const Hero = () => {
                 <a
                   key={idx}
                   href={social.href}
-                  className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
+                  className="p-3.5 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
                 >
                   {<social.icon className="w-5 h-5" />}
                 </a>
@@ -121,40 +121,69 @@ export const Hero = () => {
             </div>
           </div>
           {/* Right Column - Profile Image */}
-          <div className="relatice animate-fade-in animation-delay-300">
-            {/* Profile Image */}
-            <div className="relative max-w-md mx-auto">
+          <div className="relative animate-fade-in animation-delay-300">
+            {/* Profile Image Container */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5, rotate: -5 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="relative max-w-md mx-auto group"
+            >
+              {/* Animated Background Glow */}
               <div
                 className="absolute inset-0 
               rounded-3xl bg-gradient-to-br 
-              from-primary/30 via-transparent 
-              to-primary/10 blur-2xl animate-pulse"
+              from-primary/40 via-purple-500/20 
+              to-secondary/40 blur-3xl animate-pulse"
               />
-              <div className="relative glass rounded-3xl p-2 glow-border">
-                <img
-                  src="/profile-photo.jpg"
-                  alt="Pedro Machado"
-                  className="w-full aspect-[4/5] object-cover rounded-2xl"
-                />
 
-                {/* Floating Badge */}
-                <div className="absolute -bottom-4 -right-4 glass rounded-xl px-4 py-3 animate-float">
+              {/* Glass Card */}
+              <div className="relative glass rounded-3xl p-3 glow-border transform transition-transform duration-500 group-hover:scale-[1.02]">
+                <div className="relative overflow-hidden rounded-2xl">
+                  <motion.img
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.5 }}
+                    src="/hero-profile.jpg"
+                    alt="Pedro Machado"
+                    className="w-full aspect-[4/5] object-cover rounded-2xl hover:grayscale-0 transition-all duration-500"
+                  />
+
+                  {/* Overlay Gradient on Hover */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+
+                {/* Floating Badge - Available */}
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -bottom-6 -right-6 glass rounded-xl px-5 py-4 shadow-xl border border-border/20"
+                >
                   <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-sm font-medium">
-                      Available for work
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                    </span>
+                    <span className="text-sm font-semibold tracking-wide text-foreground">
+                      Open to work
                     </span>
                   </div>
-                </div>
-                {/* Stats Badge */}
-                <div className="absolute -top-4 -left-4 glass rounded-xl px-4 py-3 animate-float animation-delay-500">
-                  <div className="text-2xl font-bold text-primary">5+</div>
-                  <div className="text-xs text-muted-foreground">
-                    Years Exp.
+                </motion.div>
+
+                {/* Floating Badge - Experience */}
+                <motion.div
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  className="absolute -top-6 -left-6 glass rounded-xl px-5 py-4 shadow-xl border border-border/20"
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="text-3xl font-bold text-primary">5+</div>
+                    <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      Years Exp.
+                    </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
 
@@ -187,7 +216,7 @@ export const Hero = () => {
 
       <div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 
-      animate-fade-in animation-delay-800"
+        animate-fade-in animation-delay-800"
       >
         <a
           href="#about"
