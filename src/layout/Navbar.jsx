@@ -52,43 +52,38 @@ export const Navbar = () => {
           `}
           aria-label="Main Navigation"
         >
-          {/* Logo */}
-          <a
-            href="#"
-            className="text-lg font-bold tracking-tight hover:text-primary transition-colors pl-2"
-            aria-label="Home"
-          >
-            PM<span className="text-primary">.</span>
-          </a>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
-            <ul className="flex items-center gap-1">
+          {/* Desktop Nav - Centered */}
+          <div className="hidden md:flex items-center justify-center flex-1">
+            <ul className="flex items-center gap-8">
               {navLinks.map((link, index) => (
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="group relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                    className="group relative px-2 py-1 text-base font-bold text-foreground/80 hover:text-primary transition-colors duration-300"
                   >
                     {link.label}
-                    {/* Animated Underline */}
-                    <span className="absolute inset-x-4 bottom-0 h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-center rounded-full opacity-80" />
+                    {/* Hover Animation - Expanding Pillar/Underline */}
+                    <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-primary via-purple-400 to-primary origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full" />
+                    <span className="absolute inset-0 bg-primary/5 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-lg -z-10" />
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* CTA Button (Desktop) */}
-          <div className="hidden md:block pr-1">
-            <Button size="sm" className="rounded-full px-5">
+          {/* CTA Button (Desktop) - Enhanced Design */}
+          <div className="hidden md:block">
+            <Button
+              size="sm"
+              className="rounded-full px-6 bg-gradient-to-r from-primary to-purple-600 hover:from-purple-600 hover:to-primary text-white shadow-lg transform hover:scale-105 transition-all duration-300 border border-white/20"
+            >
               Contact Me
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-foreground cursor-pointer hover:bg-white/5 rounded-full transition-colors"
+            className="md:hidden p-2 text-foreground cursor-pointer hover:bg-black/5 rounded-full transition-colors ml-auto"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-expanded={isMobileMenuOpen}
             aria-label="Toggle Menu"

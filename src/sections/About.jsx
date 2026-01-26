@@ -47,33 +47,29 @@ export const About = () => {
               </span>
             </h2>
 
-            <div className="space-y-4 text-muted-foreground animate-fade-in animation-delay-200">
-              <p>
-                I'm a passionate software engineer with over 5 years of
-                experience crafting digital products that make a difference. My
-                journey started with a curiosity for how things work on the web,
-                and it has evolved into a deep expertise in modern frontend
-                technologies.
-              </p>
-              <p>
-                I specialize in React, Next.js, and TypeScript, building
-                everything from sleek landing pages to complex enterprise
-                applications. My approach combines technical excellence with a
-                keen eye for design and user experience.
-              </p>
-              <p>
-                When I'm not coding, you'll find me exploring new technologies,
-                contributing to open-source projects, or sharing knowledge with
-                the developer community.
-              </p>
-            </div>
-
-            <div className="glass rounded-2xl p-6 glow-border animate-fade-in animation-delay-300">
-              <p className="text-lg font-medium italic text-foreground">
-                "My mission is to create digital experiences that are not just
-                functional, but truly delightful — products that users love to
-                use and developers love to maintain."
-              </p>
+            {/* Content Card */}
+            <div className="relative group animate-fade-in animation-delay-200">
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary via-purple-500 to-secondary rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200" />
+              <div className="relative glass rounded-2xl p-8 space-y-6 text-lg leading-relaxed text-muted-foreground/90">
+                <p>
+                  I'm a passionate software engineer with over 5 years of
+                  experience crafting digital products that make a difference. My
+                  journey started with a curiosity for how things work on the web,
+                  and it has evolved into a deep expertise in modern frontend
+                  technologies.
+                </p>
+                <p>
+                  I specialize in React, Next.js, and TypeScript, building
+                  everything from sleek landing pages to complex enterprise
+                  applications. My approach combines technical excellence with a
+                  keen eye for design and user experience.
+                </p>
+                <p>
+                  When I'm not coding, you'll find me exploring new technologies,
+                  contributing to open-source projects, or sharing knowledge with
+                  the developer community.
+                </p>
+              </div>
             </div>
           </div>
 
