@@ -54,15 +54,17 @@ export const Projects = () => {
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
             Projects that
-            <span className="font-serif italic font-normal text-white">
-              {" "}
+            <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 px-2">
               make an impact.
             </span>
           </h2>
-          <p className="text-muted-foreground animate-fade-in animation-delay-200">
-            A selection of my recent work, from complex web applications to
-            innovative tools that solve real-world problems.
-          </p>
+          <div className="animate-fade-in animation-delay-200 relative inline-block">
+            <div className="absolute -inset-1 bg-primary/20 blur-sm rounded-lg"></div>
+            <p className="relative text-lg font-medium text-foreground bg-white/50 backdrop-blur-sm px-4 py-2 rounded-lg border border-primary/10">
+              A selection of my recent work, from complex web applications to
+              innovative tools that solve real-world problems.
+            </p>
+          </div>
         </div>
 
         {/* Projects Grid */}

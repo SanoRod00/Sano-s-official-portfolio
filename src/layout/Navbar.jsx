@@ -53,6 +53,15 @@ export const Navbar = () => {
           `}
           aria-label="Main Navigation"
         >
+          {/* Logo */}
+          <Link
+            to="/"
+            className="text-lg font-bold tracking-tight hover:text-primary transition-colors pl-2"
+            aria-label="Home"
+          >
+            SR<span className="text-primary">.</span>
+          </Link>
+
           {/* Desktop Nav - Centered */}
           <div className="hidden md:flex items-center justify-center flex-1">
             <ul className="flex items-center gap-8">

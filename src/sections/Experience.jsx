@@ -54,25 +54,19 @@ export const Experience = () => {
           >
             Career Journey
           </span>
-          <h2
-            className="text-4xl md:text-5xl font-bold
-           mt-4 mb-6 animate-fade-in animation-delay-100
-            text-secondary-foreground"
-          >
-            Experience that{" "}
-            <span className="font-serif italic font-normal text-white">
-              {" "}
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
+            Experience that
+            <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 px-2">
               speaks volumes.
             </span>
           </h2>
-
-          <p
-            className="text-muted-foreground
-           animate-fade-in animation-delay-200"
-          >
-            A timeline of my professional growth, from curious beginner to
-            senior engineer leading teams and building products at scale.
-          </p>
+          <div className="animate-fade-in animation-delay-200 relative inline-block">
+            <div className="absolute -inset-1 bg-primary/20 blur-sm rounded-lg"></div>
+            <p className="relative text-lg font-medium text-foreground bg-white/50 backdrop-blur-sm px-4 py-2 rounded-lg border border-primary/10">
+              A timeline of my professional growth, from curious beginner to
+              senior engineer leading teams and building products at scale.
+            </p>
+          </div>
         </div>
 
         {/* Timeline */}
@@ -96,11 +90,10 @@ export const Experience = () => {
 
                 {/* Content */}
                 <div
-                  className={`pl-8 md:pl-0 ${
-                    idx % 2 === 0
+                  className={`pl-8 md:pl-0 ${idx % 2 === 0
                       ? "md:pr-16 md:text-right"
                       : "md:col-start-2 md:pl-16"
-                  }`}
+                    }`}
                 >
                   <div
                     className={`glass p-6 rounded-2xl border border-primary/30 hover:border-primary/50 transition-all duration-500`}
@@ -114,9 +107,8 @@ export const Experience = () => {
                       {exp.description}
                     </p>
                     <div
-                      className={`flex flex-wrap gap-2 mt-4 ${
-                        idx % 2 === 0 ? "md:justify-end" : ""
-                      }`}
+                      className={`flex flex-wrap gap-2 mt-4 ${idx % 2 === 0 ? "md:justify-end" : ""
+                        }`}
                     >
                       {exp.technologies.map((tech, techIdx) => (
                         <span

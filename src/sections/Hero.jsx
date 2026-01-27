@@ -190,9 +190,11 @@ export const Hero = () => {
 
         {/* Skills Section */}
         <div className="mt-20 animate-fade-in animation-delay-600">
-          <p className="text-sm text-muted-foreground mb-6 text-center">
-            Technologies I work with
-          </p>
+          <div className="text-center mb-8">
+            <span className="inline-block px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary font-semibold tracking-wide text-sm uppercase">
+              Technologies I work with
+            </span>
+          </div>
           <div className="relative overflow-hidden">
             <div
               className="absolute left-0 top-0 bottom-0 w-32

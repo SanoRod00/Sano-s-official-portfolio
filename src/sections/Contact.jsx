@@ -105,10 +105,12 @@ export const Contact = () => {
               something great.
             </span>
           </h2>
-          <p className="text-muted-foreground animate-fade-in animation-delay-200">
-            Have a project in mind? I'd love to hear about it. Send me a message
-            and let's discuss how we can work together.
-          </p>
+          <div className="animate-fade-in animation-delay-200 mt-6">
+            <p className="text-xl font-medium text-foreground max-w-2xl mx-auto leading-relaxed p-4 rounded-2xl glass border-primary/20 border">
+              Have a project in mind? I'd love to hear about it. Send me a message
+              and let's discuss how we can work together.
+            </p>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
