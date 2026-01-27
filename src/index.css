@@ -1,25 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #fdfaff;
-  --color-foreground: #2d3748;
+  --color-background: #f8fafc;
+  /* Very light cool gray/blue */
+  --color-foreground: #1a202c;
 
   --color-card: #ffffff;
-  /* Light card background */
 
-  --color-primary: #b39cd0;
+  --color-primary: #428aa3;
+  /* New Requested Teal/Blue */
   --color-primary-foreground: #ffffff;
 
-  --color-secondary: #d5cabd;
-  --color-secondary-foreground: #2d3748;
+  --color-secondary: #e2e8f0;
+  --color-secondary-foreground: #1a202c;
 
-  --color-muted: #e2e8f0;
-  /* Standard muted background for light mode */
-  --color-muted-foreground: #4d8076;
-  /* Using the requested teal as muted text/accent */
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #475569;
+  /* Darker slate for better visibility */
 
-  --color-accent: #4d8076;
-  /* Added explicit accent variable */
+  --color-accent: #38bdf8;
+
+  --color-border: #cbd5e1;
+
+  --radius: 0.75rem;
+
+  --color-highlight: #f5a623;
+  --color-surface: #ffffff;
 
   --color-border: #e2e8f0;
 
@@ -47,6 +53,12 @@
 
   .font-serif {
     font-family: "Playfair Display", serif;
+  }
+
+  /* Ensure small text is legible and bold */
+  .text-sm,
+  .text-xs {
+    font-weight: 500;
   }
 }
 

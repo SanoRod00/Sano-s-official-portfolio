@@ -48,6 +48,7 @@ export const Hero = () => {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(30)].map((_, i) => (
           <div
+            key={i}
             className="absolute w-1.5 h-1.5 rounded-full opacity-60"
             style={{
               backgroundColor: "#b39cd0",
@@ -85,7 +86,7 @@ export const Hero = () => {
                 </span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg animate-fade-in animation-delay-200">
-                Hi, I'm Pedro Machado — a software engineer specializing in
+                Hi, I'm Sano Rodrigue — a software engineer specializing in
                 React, Next.js, and TypeScript. I build scalable, performant web
                 applications that users love.
               </p>
@@ -144,7 +145,7 @@ export const Hero = () => {
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.5 }}
                     src="/hero-profile.jpg"
-                    alt="Pedro Machado"
+                    alt="Sano Rodrigue"
                     className="w-full aspect-[4/5] object-cover rounded-2xl hover:grayscale-0 transition-all duration-500"
                   />
 
