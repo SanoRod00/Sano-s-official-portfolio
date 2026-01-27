@@ -52,7 +52,7 @@ export const About = () => {
               <div className="absolute -inset-1 bg-gradient-to-r from-primary via-purple-500 to-secondary rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200" />
               <div className="relative glass rounded-2xl p-8 space-y-6 text-lg leading-relaxed text-muted-foreground/90">
                 <p>
-                  I'm a passionate software engineer with over 5 years of
+                  I'm a passionate software engineer with over 3 years of
                   experience crafting digital products that make a difference. My
                   journey started with a curiosity for how things work on the web,
                   and it has evolved into a deep expertise in modern frontend

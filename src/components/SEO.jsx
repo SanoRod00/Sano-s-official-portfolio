@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 
 export const SEO = ({ title, description, image, url }) => {
-    const siteTitle = 'Pedro Machado - Software Engineer';
-    const defaultDescription = 'Portfolio of Pedro Machado, a software engineer specializing in React, Next.js, and TypeScript.';
-    const siteUrl = 'https://pedromachado.dev'; // Replace with actual URL
+    const siteTitle = 'Sano Rodrigue - Software Engineer';
+    const defaultDescription = 'Portfolio of Sano Rodrigue, a software engineer specializing in React, Next.js, and TypeScript.';
+    const siteUrl = 'https://sanorodrigue.dev'; // Replace with actual URL
 
     return (
         <Helmet>

@@ -88,7 +88,7 @@ export const TerminalNav = () => {
               <div className="flex-1 p-4 overflow-y-auto custom-scrollbar flex flex-col gap-2">
                 {/* Welcome Message */}
                 <div className="mb-4 text-green-400/80">
-                  <p>{">"} Welcome to Pedro's portfolio.</p>
+                  <p>{">"} Welcome to Sano's portfolio.</p>
                   <p>{">"} Type <span className="text-green-400 font-bold">'help'</span> to see available commands.</p>
                 </div>
 

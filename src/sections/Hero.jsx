@@ -177,7 +177,7 @@ export const Hero = () => {
                   className="absolute -top-6 -left-6 glass rounded-xl px-5 py-4 shadow-xl border border-border/20"
                 >
                   <div className="flex flex-col items-center">
-                    <div className="text-3xl font-bold text-primary">5+</div>
+                    <div className="text-3xl font-bold text-primary">3+</div>
                     <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                       Years Exp.
                     </div>
