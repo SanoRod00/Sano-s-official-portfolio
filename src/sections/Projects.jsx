@@ -54,7 +54,7 @@ export const Projects = () => {
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
             Projects that
-            <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 px-2">
+            <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#051937] px-2">
               make an impact.
             </span>
           </h2>

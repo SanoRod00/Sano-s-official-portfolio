@@ -75,16 +75,39 @@ export const Hero = () => {
             </div>
 
             {/* Headline */}
+            {/* Headline with Staggered Character Animation */}
             <div className="space-y-4">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight animate-fade-in animation-delay-100">
-                Crafting <span className="text-primary glow-text">digital</span>
+              <motion.h1
+                className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: { staggerChildren: 0.05, delayChildren: 0.2 }
+                  }
+                }}
+              >
+                {Array.from("Crafting ").map((char, i) => (
+                  <motion.span key={i} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>{char}</motion.span>
+                ))}
+                <span className="text-primary glow-text">
+                  {Array.from("digital").map((char, i) => (
+                    <motion.span key={i} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>{char}</motion.span>
+                  ))}
+                </span>
                 <br />
-                experiences with
+                {Array.from("experiences with").map((char, i) => (
+                  <motion.span key={i} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>{char}</motion.span>
+                ))}
                 <br />
                 <span className="font-serif italic font-normal text-foreground">
-                  precision.
+                  {Array.from("precision.").map((char, i) => (
+                    <motion.span key={i} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>{char}</motion.span>
+                  ))}
                 </span>
-              </h1>
+              </motion.h1>
               <p className="text-lg text-muted-foreground max-w-lg animate-fade-in animation-delay-200">
                 Hi, I'm Sano Rodrigue — a software engineer specializing in
                 React, Next.js, and TypeScript. I build scalable, performant web

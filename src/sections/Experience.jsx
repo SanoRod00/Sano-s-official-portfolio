@@ -56,7 +56,7 @@ export const Experience = () => {
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
             Experience that
-            <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 px-2">
+            <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#051937] px-2">
               speaks volumes.
             </span>
           </h2>
@@ -91,8 +91,8 @@ export const Experience = () => {
                 {/* Content */}
                 <div
                   className={`pl-8 md:pl-0 ${idx % 2 === 0
-                      ? "md:pr-16 md:text-right"
-                      : "md:col-start-2 md:pl-16"
+                    ? "md:pr-16 md:text-right"
+                    : "md:col-start-2 md:pl-16"
                     }`}
                 >
                   <div
