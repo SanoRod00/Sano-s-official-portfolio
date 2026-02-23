@@ -1,10 +1,9 @@
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { MainLayout } from "@/layout/MainLayout";
 import { Home } from "@/pages/Home";
 import { ProjectsPage } from "@/pages/ProjectsPage";
 import { ProjectDetail } from "@/pages/ProjectDetail";
 import { Footer } from "@/layout/Footer";
-import { ScrollToTop } from "@/components/ScrollToTop";
 
 function App() {
   return (

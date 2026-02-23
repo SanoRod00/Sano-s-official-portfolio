@@ -1,70 +1,62 @@
-import { Moon, Sun, Menu, X } from "lucide-react";
-import { Button } from "@/components/Button";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
 
-export const TopNav = ({ isMobileMenuOpen, onToggleMobileMenu }) => {
-    const [isDark, setIsDark] = useState(false);
+const navItems = [
+  { label: "About", to: "/#about" },
+  { label: "Experience", to: "/#experience" },
+  { label: "Projects", to: "/#projects" },
+  { label: "Contact", to: "/#contact" },
+];
 
-    // Toggle Dark Mode
-    const toggleTheme = () => {
-        const newTheme = !isDark;
-        setIsDark(newTheme);
-        if (newTheme) {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-        }
-    };
+export const TopNav = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
-    // Check system preference on mount
-    useEffect(() => {
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            setIsDark(true);
-            document.documentElement.classList.add("dark");
-        }
-    }, []);
+  return (
+    <header className="fixed inset-x-0 top-0 z-50 px-4 py-4">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between rounded-full border border-border bg-card/95 px-5 py-4 shadow-[0_8px_24px_rgba(0,0,0,0.06)] backdrop-blur-sm md:px-8">
+        <Link to="/" className="text-3xl font-semibold tracking-tight text-foreground md:text-[2.35rem]">
+          Sano Rodrigue
+        </Link>
 
-    return (
-        <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-background/80 backdrop-blur-md border-b border-border transition-all duration-300">
-            <div className="flex items-center gap-4">
-                {/* Mobile Menu Toggle */}
-                <button
-                    className="md:hidden p-2 text-foreground hover:bg-muted rounded-full transition-colors"
-                    onClick={onToggleMobileMenu}
-                    aria-label="Toggle Mobile Menu"
-                >
-                    {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
+        <nav className="hidden items-center gap-9 md:flex">
+          {navItems.map((item) => (
+            <Link
+              key={item.label}
+              to={item.to}
+              onClick={() => setIsOpen(false)}
+              className="text-lg font-medium text-foreground/85 transition-colors duration-200 hover:text-foreground"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
-                {/* Logo */}
-                <Link
-                    to="/"
-                    className="text-2xl font-bold tracking-tight hover:text-primary transition-colors font-serif"
-                >
-                    Sano<span className="text-primary">.</span>
-                </Link>
-            </div>
+        <button
+          type="button"
+          aria-label="Toggle menu"
+          aria-expanded={isOpen}
+          onClick={() => setIsOpen((current) => !current)}
+          className="rounded-full border border-border p-2.5 text-foreground md:hidden"
+        >
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </div>
 
-            {/* Right Actions */}
-            <div className="flex items-center gap-4">
-                {/* Contact Button */}
-                <Button
-                    size="sm"
-                    className="hidden sm:flex rounded-full px-6 bg-transparent border border-gray-600 text-foreground hover:bg-gray-800 hover:text-white transition-all"
-                >
-                    Contact Me
-                </Button>
-
-                {/* Theme Toggle */}
-                <button
-                    onClick={toggleTheme}
-                    className="p-2 rounded-full hover:bg-muted transition-colors text-foreground"
-                    aria-label="Toggle Theme"
-                >
-                    {isDark ? <Sun size={20} /> : <Moon size={20} />}
-                </button>
-            </div>
-        </header>
-    );
+      {isOpen ? (
+        <nav className="mx-auto mt-3 flex w-full max-w-6xl flex-col gap-2 rounded-3xl border border-border bg-card p-4 shadow-[0_16px_28px_rgba(0,0,0,0.09)] md:hidden">
+          {navItems.map((item) => (
+            <Link
+              key={item.label}
+              to={item.to}
+              onClick={() => setIsOpen(false)}
+              className="rounded-2xl px-4 py-3 text-base font-semibold text-foreground/90 transition-colors duration-200 hover:bg-foreground hover:text-background"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+      ) : null}
+    </header>
+  );
 };

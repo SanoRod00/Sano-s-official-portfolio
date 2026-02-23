@@ -1,21 +1,19 @@
+import { SEO } from "@/components/SEO";
 import { Hero } from "@/sections/Hero";
 import { About } from "@/sections/About";
-import { Projects } from "@/sections/Projects"; // This will become a "Featured Projects" section
 import { Experience } from "@/sections/Experience";
-import { Testimonials } from "@/sections/Testimonials";
+import { Projects } from "@/sections/Projects";
 import { Contact } from "@/sections/Contact";
-import { SEO } from "@/components/SEO";
 
 export const Home = () => {
-    return (
-        <>
-            <SEO title="Home" />
-            <Hero />
-            <About />
-            <Projects />
-            <Experience />
-            <Testimonials />
-            <Contact />
-        </>
-    );
+  return (
+    <>
+      <SEO title="Home" />
+      <Hero />
+      <About />
+      <Experience />
+      <Projects />
+      <Contact />
+    </>
+  );
 };

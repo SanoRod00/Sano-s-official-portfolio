@@ -1,86 +1,98 @@
 export const projects = [
-    {
-        id: "finance-dashboard",
-        slug: "finance-dashboard",
-        title: "FinTech Analytics Dashboard",
-        tagline: "Real-time financial data visualization for enterprise clients",
-        description: "A comprehensive dashboard for monitoring financial markets, tracking portfolio performance, and analyzing trends with real-time data updates.",
-        heroImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
-        categories: ["React", "D3.js", "TypeScript"],
-        liveUrl: "#",
-        repoUrl: "#",
-        problem: "Enterprise clients needed a way to visualize complex financial datasets in real-time without performance degradation. Existing solutions were slow and difficult to customize.",
-        solution: "Built a high-performance React application using D3.js for custom visualizations. Implemented WebSocket connections for sub-second data updates and web workers for heavy data processing off the main thread.",
-        features: [
-            "Real-time WebSocket data streaming",
-            "Custom interactive charts with D3.js",
-            "User-configurable dashboard layouts",
-            "Dark/Light mode support",
-            "Exportable reports (PDF/CSV)"
-        ],
-        techStack: [
-            { name: "React", icon: "⚛️" },
-            { name: "TypeScript", icon: "TS" },
-            { name: "D3.js", icon: "📊" },
-            { name: "Node.js", icon: "🟢" },
-            { name: "WebSockets", icon: "🔌" }
-        ],
-        results: "Reduced data loading time by 60% and increased user engagement by 40%. Scaled to handle 50,000+ simultaneous connections."
-    },
-    {
-        id: "ecommerce-platform",
-        slug: "ecommerce-platform",
-        title: "Modern E-Commerce Engine",
-        tagline: "Headless e-commerce solution built for speed and conversion",
-        description: "A headless e-commerce storefront designed for maximum performance, featuring server-side rendering and a seamless checkout experience.",
-        heroImage: "https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=2089&auto=format&fit=crop",
-        categories: ["Next.js", "Stripe", "Tailwind"],
-        liveUrl: "#",
-        repoUrl: "#",
-        problem: "The client's legacy monolithic platform was suffering from slow page loads (3s+) and poor mobile experience, leading to high cart abandonment rates.",
-        solution: "Migrated to a modern headless architecture using Next.js. Implemented ISR (Incremental Static Regeneration) for instant product pages and optimized image delivery.",
-        features: [
-            "Server-side rendering for SEO",
-            "Integrated Stripe Payment intent",
-            "Optimized cart state management",
-            "Mobile-first responsive design",
-            "CMS integration for product management"
-        ],
-        techStack: [
-            { name: "Next.js", icon: "N" },
-            { name: "Tailwind CSS", icon: "🎨" },
-            { name: "Stripe API", icon: "💳" },
-            { name: "Zustand", icon: "🐻" },
-            { name: "Vercel", icon: "▲" }
-        ],
-        results: "Page load speed improved to 0.8s. Mobile conversion rate increased by 25% in the first month after launch."
-    },
-    {
-        id: "ai-content-generator",
-        slug: "ai-content-generator",
-        title: "AI Content Studio",
-        tagline: "Generative AI tool for marketing teams",
-        description: "An intuitive interface for marketing teams to generate, edit, and schedule social media content using large language models.",
-        heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop",
-        categories: ["OpenAI", "React", "Node.js"],
-        liveUrl: "#",
-        repoUrl: "#",
-        problem: "Marketing teams were spending too much time brainstorming and drafting initial copy. They needed a tool to accelerate the creative process.",
-        solution: "Developed a wrapper application around OpenAI's API with custom prompt engineering templates tailored for marketing use cases. Added a collaborative workspace for team editing.",
-        features: [
-            "Custom prompt templates",
-            "Multi-user real-time editing",
-            "Social media platform integration",
-            "History versioning",
-            "Token usage analytics"
-        ],
-        techStack: [
-            { name: "React", icon: "⚛️" },
-            { name: "OpenAI API", icon: "🤖" },
-            { name: "Express", icon: "🚂" },
-            { name: "MongoDB", icon: "🍃" },
-            { name: "Socket.io", icon: "🔌" }
-        ],
-        results: "Adoption by 5 internal teams, saving an estimated 20 hours per week per team on content drafting."
-    }
+  {
+    id: "remote-collab-platform",
+    slug: "remote-collab-platform",
+    title: "Project One",
+    tagline: "Remote collaboration workspace focused on speed and clarity",
+    description:
+      "A modern collaboration platform with real-time updates, message threads, and team dashboards for distributed teams.",
+    heroImage: "/projects/project1.png",
+    categories: ["React", "TypeScript", "Node.js"],
+    liveUrl: "https://example.com/project-one",
+    repoUrl: "https://github.com/example/project-one",
+    problem:
+      "Remote teams struggled with fragmented communication across multiple tools, causing delays and duplicate work.",
+    solution:
+      "Built a single workspace with structured channels, instant notifications, and responsive dashboards optimized for low-latency interactions.",
+    features: [
+      "Real-time status updates",
+      "Collaborative task boards",
+      "Team-specific notification controls",
+      "Role-based permissions",
+      "Fast searchable activity timeline",
+    ],
+    techStack: [
+      { name: "React", icon: "⚛️" },
+      { name: "TypeScript", icon: "TS" },
+      { name: "Node.js", icon: "🟢" },
+      { name: "PostgreSQL", icon: "🐘" },
+      { name: "WebSockets", icon: "🔌" },
+    ],
+    results:
+      "Improved team response time by 37% and reduced context switching by consolidating daily work into one interface.",
+  },
+  {
+    id: "mobile-reminder-suite",
+    slug: "mobile-reminder-suite",
+    title: "Project Two",
+    tagline: "Mobile reminder product for personal scheduling and routine planning",
+    description:
+      "A mobile-first reminder experience with smart recurring schedules, real-time alerts, and clean task organization.",
+    heroImage: "/projects/project2.png",
+    categories: ["React", "Express", "MongoDB"],
+    liveUrl: "https://example.com/project-two",
+    repoUrl: "https://github.com/example/project-two",
+    problem:
+      "Users needed a lightweight reminder app that stayed reliable under poor connectivity and frequent context changes.",
+    solution:
+      "Implemented an offline-friendly architecture with fast sync reconciliation and an interface optimized for one-handed interaction.",
+    features: [
+      "Recurring reminder engine",
+      "Offline mode with sync recovery",
+      "Context-aware push notifications",
+      "Calendar and list views",
+      "Usage insights dashboard",
+    ],
+    techStack: [
+      { name: "React", icon: "⚛️" },
+      { name: "Express", icon: "🚂" },
+      { name: "MongoDB", icon: "🍃" },
+      { name: "Cloud Functions", icon: "☁️" },
+      { name: "Push API", icon: "📲" },
+    ],
+    results:
+      "Cut missed reminder rates by 42% and increased weekly active usage through faster interactions and better notification timing.",
+  },
+  {
+    id: "food-delivery-campaign",
+    slug: "food-delivery-campaign",
+    title: "Project Three",
+    tagline: "Conversion-focused food ordering experience and campaign landing",
+    description:
+      "A marketing + ordering flow built for quick menu discovery, promotion tracking, and higher mobile conversion rates.",
+    heroImage: "/projects/project3.png",
+    categories: ["Next.js", "Tailwind", "Stripe"],
+    liveUrl: "https://example.com/project-three",
+    repoUrl: "https://github.com/example/project-three",
+    problem:
+      "High cart abandonment was driven by slow pages and unclear promotion visibility during checkout.",
+    solution:
+      "Redesigned the funnel with performance budgets, stronger offer placement, and fewer checkout steps to reduce friction.",
+    features: [
+      "Fast category browsing",
+      "Promotion-aware checkout",
+      "A/B tested call-to-action variants",
+      "Real-time order tracking",
+      "Admin campaign controls",
+    ],
+    techStack: [
+      { name: "Next.js", icon: "N" },
+      { name: "Tailwind", icon: "🎨" },
+      { name: "Stripe", icon: "💳" },
+      { name: "PostgreSQL", icon: "🐘" },
+      { name: "Vercel", icon: "▲" },
+    ],
+    results:
+      "Reduced median page load to 1.1s and improved checkout completion by 29% over the previous release.",
+  },
 ];

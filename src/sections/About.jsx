@@ -1,96 +1,62 @@
-import { Code2, Lightbulb, Rocket, Users } from "lucide-react";
+import { Award, Users } from "lucide-react";
 
 const highlights = [
   {
-    icon: Code2,
-    title: "Clean Code",
-    description:
-      "Writing maintainable, scalable code that stands the test of time.",
-  },
-  {
-    icon: Rocket,
-    title: "Performance",
-    description:
-      "Optimizing for speed and delivering lightning-fast user experiences.",
+    icon: Award,
+    title: "Experience",
+    subtitle: "3+ years",
+    detail: "Frontend Development",
   },
   {
     icon: Users,
-    title: "Collaboration",
-    description: "Working closely with teams to bring ideas to life.",
-  },
-  {
-    icon: Lightbulb,
-    title: "Innovation",
-    description:
-      "Staying ahead with the latest technologies and best practices.",
+    title: "Education",
+    subtitle: "B.Sc. Software Engineering",
+    detail: "Continuous learning mindset",
   },
 ];
 
 export const About = () => {
   return (
-    <section id="about" className="py-32 relative overflow-hidden">
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Column */}
-          <div className="space-y-8">
-            <div className="animate-fade-in">
-              <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase">
-                About Me
-              </span>
-            </div>
+    <section id="about" className="section-shell section-spacing">
+      <header className="mb-14 text-center reveal">
+        <p className="section-label">Get To Know More</p>
+        <h2 className="section-title">About Me</h2>
+      </header>
 
-            <h2 className="text-4xl md:text-5xl font-bold leading-tight animate-fade-in animation-delay-100 text-secondary-foreground">
-              Building the future,
-              <span className="font-serif italic font-normal text-foreground">
-                {" "}
-                one component at a time.
-              </span>
-            </h2>
+      <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+        <div className="reveal overflow-hidden rounded-[2rem] border border-border bg-card" style={{ animationDelay: "60ms" }}>
+          <img
+            src="/profile-photo.jpg"
+            alt="Portrait of Sano Rodrigue"
+            width="900"
+            height="1100"
+            loading="lazy"
+            decoding="async"
+            className="aspect-[4/5] w-full object-cover"
+          />
+        </div>
 
-            {/* Content Card */}
-            <div className="relative group animate-fade-in animation-delay-200">
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary via-purple-500 to-secondary rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200" />
-              <div className="relative glass rounded-2xl p-8 space-y-6 text-lg leading-relaxed text-muted-foreground/90">
-                <p>
-                  I'm a passionate software engineer with over 3 years of
-                  experience crafting digital products that make a difference. My
-                  journey started with a curiosity for how things work on the web,
-                  and it has evolved into a deep expertise in modern frontend
-                  technologies.
-                </p>
-                <p>
-                  I specialize in React, Next.js, and TypeScript, building
-                  everything from sleek landing pages to complex enterprise
-                  applications. My approach combines technical excellence with a
-                  keen eye for design and user experience.
-                </p>
-                <p>
-                  When I'm not coding, you'll find me exploring new technologies,
-                  contributing to open-source projects, or sharing knowledge with
-                  the developer community.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column - Hilights */}
-          <div className="grid sm:grid-cols-2 gap-6">
-            {highlights.map((item, idx) => (
-              <div
-                key={idx}
-                className="glass p-6 rounded-2xl animate-fade-in"
-                style={{ animationDelay: `${(idx + 1) * 100}ms` }}
+        <div className="space-y-8">
+          <div className="grid gap-4 sm:grid-cols-2">
+            {highlights.map((item, index) => (
+              <article
+                key={item.title}
+                className="reveal soft-card p-6 text-center"
+                style={{ animationDelay: `${120 + index * 90}ms` }}
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 hover:bg-primary/20">
-                  <item.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {item.description}
-                </p>
-              </div>
+                <item.icon className="mx-auto mb-3 h-6 w-6" />
+                <h3 className="text-3xl font-bold leading-tight">{item.title}</h3>
+                <p className="mt-1 text-xl font-semibold text-muted">{item.subtitle}</p>
+                <p className="text-lg text-muted">{item.detail}</p>
+              </article>
             ))}
           </div>
+
+          <p className="reveal text-lg leading-relaxed text-muted md:text-xl" style={{ animationDelay: "250ms" }}>
+            I build web interfaces that feel clean, fast, and dependable. My focus is
+            performance-first React architecture, maintainable component systems, and
+            thoughtful UX details that make products easier to use.
+          </p>
         </div>
       </div>
     </section>
