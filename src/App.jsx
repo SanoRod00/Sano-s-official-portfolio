@@ -3,7 +3,8 @@ import { MainLayout } from "@/layout/MainLayout";
 import { Home } from "@/pages/Home";
 import { ProjectsPage } from "@/pages/ProjectsPage";
 import { ProjectDetail } from "@/pages/ProjectDetail";
-import { ScrollToTop } from "@/components/ScrollToTop"; // I'll create this to fix scroll on nav
+import { Footer } from "@/layout/Footer";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 function App() {
   return (
