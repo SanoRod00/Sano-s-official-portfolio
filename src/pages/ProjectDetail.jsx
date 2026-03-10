@@ -16,7 +16,10 @@ export const ProjectDetail = () => {
       <SEO title={project.title} description={project.description} image={project.heroImage} />
 
       <article className="section-shell section-spacing">
-        <Link to="/projects" className="mb-8 inline-flex items-center gap-2 text-lg font-semibold text-muted transition-colors duration-200 hover:text-foreground">
+        <Link
+          to="/projects"
+          className="mb-8 inline-flex items-center gap-2 text-base font-semibold text-muted transition-colors duration-200 hover:text-foreground md:text-lg"
+        >
           <ArrowLeft className="h-4 w-4" />
           Back to Projects
         </Link>
@@ -24,7 +27,7 @@ export const ProjectDetail = () => {
         <header className="mb-10 reveal space-y-4">
           <p className="section-label">Case Study</p>
           <h1 className="text-4xl font-extrabold leading-tight md:text-6xl">{project.title}</h1>
-          <p className="text-xl leading-relaxed text-muted md:text-2xl">{project.tagline}</p>
+          <p className="text-lg leading-relaxed text-muted md:text-2xl">{project.tagline}</p>
 
           <div className="flex flex-wrap gap-3 pt-2">
             <a href={project.liveUrl} target="_blank" rel="noreferrer" className="solid-btn">
@@ -38,32 +41,36 @@ export const ProjectDetail = () => {
           </div>
         </header>
 
-        <img
-          src={project.heroImage}
-          alt={project.title}
-          width="1320"
-          height="840"
-          className="reveal mb-12 w-full rounded-[2rem] border border-border object-cover"
-        />
+        <div className="reveal mb-12">
+          <div className="photo-shell">
+            <img
+              src={project.heroImage}
+              alt={project.title}
+              width="1320"
+              height="840"
+              className="photo-image aspect-[16/10]"
+            />
+          </div>
+        </div>
 
         <div className="grid gap-8 lg:grid-cols-[1fr_0.95fr]">
           <section className="reveal soft-card p-6 md:p-8" style={{ animationDelay: "100ms" }}>
-            <h2 className="text-3xl font-bold">Problem</h2>
-            <p className="mt-4 text-lg leading-relaxed text-muted">{project.problem}</p>
+            <h2 className="text-2xl font-bold md:text-3xl">Problem</h2>
+            <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">{project.problem}</p>
 
-            <h2 className="mt-8 text-3xl font-bold">Solution</h2>
-            <p className="mt-4 text-lg leading-relaxed text-muted">{project.solution}</p>
+            <h2 className="mt-8 text-2xl font-bold md:text-3xl">Solution</h2>
+            <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">{project.solution}</p>
 
-            <h2 className="mt-8 text-3xl font-bold">Results</h2>
-            <p className="mt-4 text-lg leading-relaxed text-muted">{project.results}</p>
+            <h2 className="mt-8 text-2xl font-bold md:text-3xl">Results</h2>
+            <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">{project.results}</p>
           </section>
 
           <aside className="reveal space-y-6" style={{ animationDelay: "190ms" }}>
             <section className="soft-card p-6">
-              <h3 className="text-2xl font-bold">Tech Stack</h3>
+              <h3 className="text-xl font-bold md:text-2xl">Tech Stack</h3>
               <ul className="mt-4 space-y-2">
                 {project.techStack.map((tech) => (
-                  <li key={tech.name} className="text-lg text-muted">
+                  <li key={tech.name} className="text-base text-muted md:text-lg">
                     {tech.icon} {tech.name}
                   </li>
                 ))}
@@ -71,10 +78,10 @@ export const ProjectDetail = () => {
             </section>
 
             <section className="soft-card p-6">
-              <h3 className="text-2xl font-bold">Key Features</h3>
+              <h3 className="text-xl font-bold md:text-2xl">Key Features</h3>
               <ul className="mt-4 space-y-2">
                 {project.features.map((feature) => (
-                  <li key={feature} className="text-lg text-muted">
+                  <li key={feature} className="text-base text-muted md:text-lg">
                     • {feature}
                   </li>
                 ))}

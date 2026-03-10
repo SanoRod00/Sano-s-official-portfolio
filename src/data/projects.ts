@@ -1,25 +1,25 @@
 export const projects = [
   {
-    id: "remote-collab-platform",
-    slug: "remote-collab-platform",
-    title: "Project One",
-    tagline: "Remote collaboration workspace focused on speed and clarity",
+    id: "colabsync",
+    slug: "colabsync",
+    title: "ColabSync",
+    tagline: "Real-time team collaboration workspace",
     description:
-      "A modern collaboration platform with real-time updates, message threads, and team dashboards for distributed teams.",
+      "Collaboration platform with live updates, threads, and team dashboards.",
     heroImage: "/projects/project1.png",
     categories: ["React", "TypeScript", "Node.js"],
-    liveUrl: "https://example.com/project-one",
-    repoUrl: "https://github.com/example/project-one",
+    liveUrl: "https://example.com/colabsync",
+    repoUrl: "https://github.com/sanorod/colabsync",
     problem:
-      "Remote teams struggled with fragmented communication across multiple tools, causing delays and duplicate work.",
+      "Fragmented tools caused delays and duplicate work for remote teams.",
     solution:
-      "Built a single workspace with structured channels, instant notifications, and responsive dashboards optimized for low-latency interactions.",
+      "Unified workspace with structured channels, instant notifications, and low-latency dashboards.",
     features: [
-      "Real-time status updates",
-      "Collaborative task boards",
-      "Team-specific notification controls",
-      "Role-based permissions",
-      "Fast searchable activity timeline",
+      "Real-time updates",
+      "Task boards",
+      "Custom notifications",
+      "Role-based access",
+      "Searchable timeline",
     ],
     techStack: [
       { name: "React", icon: "⚛️" },
@@ -29,29 +29,29 @@ export const projects = [
       { name: "WebSockets", icon: "🔌" },
     ],
     results:
-      "Improved team response time by 37% and reduced context switching by consolidating daily work into one interface.",
+      "37% faster response time, reduced context switching across teams.",
   },
   {
-    id: "mobile-reminder-suite",
-    slug: "mobile-reminder-suite",
-    title: "Project Two",
-    tagline: "Mobile reminder product for personal scheduling and routine planning",
+    id: "remindme",
+    slug: "remindme",
+    title: "RemindMe",
+    tagline: "Mobile-first smart reminder app",
     description:
-      "A mobile-first reminder experience with smart recurring schedules, real-time alerts, and clean task organization.",
+      "Recurring schedules, real-time alerts, and offline-ready task management.",
     heroImage: "/projects/project2.png",
     categories: ["React", "Express", "MongoDB"],
-    liveUrl: "https://example.com/project-two",
-    repoUrl: "https://github.com/example/project-two",
+    liveUrl: "https://example.com/remindme",
+    repoUrl: "https://github.com/sanorod/remindme",
     problem:
-      "Users needed a lightweight reminder app that stayed reliable under poor connectivity and frequent context changes.",
+      "Existing reminder apps broke under poor connectivity.",
     solution:
-      "Implemented an offline-friendly architecture with fast sync reconciliation and an interface optimized for one-handed interaction.",
+      "Offline-first architecture with fast sync and one-handed UI.",
     features: [
-      "Recurring reminder engine",
-      "Offline mode with sync recovery",
-      "Context-aware push notifications",
-      "Calendar and list views",
-      "Usage insights dashboard",
+      "Recurring reminders",
+      "Offline sync",
+      "Smart push alerts",
+      "Calendar + list views",
+      "Usage insights",
     ],
     techStack: [
       { name: "React", icon: "⚛️" },
@@ -61,29 +61,29 @@ export const projects = [
       { name: "Push API", icon: "📲" },
     ],
     results:
-      "Cut missed reminder rates by 42% and increased weekly active usage through faster interactions and better notification timing.",
+      "42% fewer missed reminders, higher weekly active usage.",
   },
   {
-    id: "food-delivery-campaign",
-    slug: "food-delivery-campaign",
-    title: "Project Three",
-    tagline: "Conversion-focused food ordering experience and campaign landing",
+    id: "foodrush",
+    slug: "foodrush",
+    title: "FoodRush",
+    tagline: "High-conversion food ordering flow",
     description:
-      "A marketing + ordering flow built for quick menu discovery, promotion tracking, and higher mobile conversion rates.",
+      "Fast menu discovery, promo tracking, and optimized mobile checkout.",
     heroImage: "/projects/project3.png",
     categories: ["Next.js", "Tailwind", "Stripe"],
-    liveUrl: "https://example.com/project-three",
-    repoUrl: "https://github.com/example/project-three",
+    liveUrl: "https://example.com/foodrush",
+    repoUrl: "https://github.com/sanorod/foodrush",
     problem:
-      "High cart abandonment was driven by slow pages and unclear promotion visibility during checkout.",
+      "Slow pages and hidden promos caused high cart abandonment.",
     solution:
-      "Redesigned the funnel with performance budgets, stronger offer placement, and fewer checkout steps to reduce friction.",
+      "Performance-first redesign with fewer checkout steps and better offer placement.",
     features: [
-      "Fast category browsing",
-      "Promotion-aware checkout",
-      "A/B tested call-to-action variants",
-      "Real-time order tracking",
-      "Admin campaign controls",
+      "Fast browsing",
+      "Promo-aware checkout",
+      "A/B tested CTAs",
+      "Live order tracking",
+      "Admin controls",
     ],
     techStack: [
       { name: "Next.js", icon: "N" },
@@ -93,6 +93,38 @@ export const projects = [
       { name: "Vercel", icon: "▲" },
     ],
     results:
-      "Reduced median page load to 1.1s and improved checkout completion by 29% over the previous release.",
+      "1.1s page load, 29% better checkout completion.",
+  },
+  {
+    id: "budgetbuddy",
+    slug: "budgetbuddy",
+    title: "BudgetBuddy",
+    tagline: "Personal finance tracker with visual insights",
+    description:
+      "Interactive charts, smart category tagging, and savings goal tracking.",
+    heroImage: "/projects/project4.png",
+    categories: ["React", "Tailwind", "Chart.js"],
+    liveUrl: "https://example.com/budgetbuddy",
+    repoUrl: "https://github.com/sanorod/budgetbuddy",
+    problem:
+      "Hard to visualize spending or set actionable savings goals.",
+    solution:
+      "Intuitive dashboard with auto-categorization and progress-based goal tracking.",
+    features: [
+      "Spending charts",
+      "Drag & drop tags",
+      "Recurring detection",
+      "Goal tracker",
+      "Monthly reports",
+    ],
+    techStack: [
+      { name: "React", icon: "⚛️" },
+      { name: "Tailwind", icon: "🎨" },
+      { name: "Chart.js", icon: "📊" },
+      { name: "Node.js", icon: "🟢" },
+      { name: "LocalStorage", icon: "💾" },
+    ],
+    results:
+      "35% better budget awareness, avg. 3 goals reached in 2 months.",
   },
 ];

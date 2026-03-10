@@ -1,10 +1,11 @@
+import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { useState } from "react";
 
 const testimonials = [
   {
     quote:
-      "Sano is one of the most talented engineers I've worked with. His attention to detail and ability to translate complex requirements into elegant solutions is remarkable.",
+      "One of the most talented engineers I've worked with. Remarkable attention to detail and elegant solutions.",
     author: "Sarah Chen",
     role: "CTO, Tech Innovators Inc.",
     avatar:
@@ -12,7 +13,7 @@ const testimonials = [
   },
   {
     quote:
-      "Working with Sano was a game-changer for our project. He delivered ahead of schedule with code quality that set a new standard for our team.",
+      "A game-changer for our project. Delivered ahead of schedule with code quality that set a new team standard.",
     author: "Michael Rodriguez",
     role: "Product Manager, Digital Solutions",
     avatar:
@@ -20,7 +21,7 @@ const testimonials = [
   },
   {
     quote:
-      "Sano's expertise in React and TypeScript helped us rebuild our entire frontend in record time. His architectural decisions continue to pay dividends.",
+      "Helped us rebuild our product platform in record time. His architectural decisions still pay dividends.",
     author: "Emily Watson",
     role: "Engineering Lead, StartUp Labs",
     avatar:
@@ -28,13 +29,18 @@ const testimonials = [
   },
   {
     quote:
-      "Not only is Sano technically brilliant, but he's also a fantastic communicator and team player. He elevated everyone around him.",
+      "Technically brilliant, a fantastic communicator, and a true team player. He elevated everyone around him.",
     author: "David Kim",
     role: "CEO, Innovation Hub",
     avatar:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
   },
 ];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 22 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+};
 
 export const Testimonials = () => {
   const [activeIdx, setActiveIdx] = useState(0);
@@ -48,105 +54,107 @@ export const Testimonials = () => {
       (prev) => (prev - 1 + testimonials.length) % testimonials.length
     );
   };
+
   return (
-    <section id="testimonials" className="py-32 relative overflow-hidden">
-      <div
-        className="absolute top-1/2 left-1/2
-       w-[800px] h-[800px] bg-primary/5
-        rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
-      />
-      <div
-        className="container mx-auto 
-      px-6 relative z-10"
+    <section id="testimonials" className="section-shell section-spacing relative overflow-hidden">
+      {/* Soft background glow */}
+      <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+
+      <motion.header
+        className="mb-14 text-center relative z-10"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
+        variants={fadeUp}
       >
-        {/* Section Header */}
-        <div
-          className="text-center max-w-3xl 
-        mx-auto mb-16"
-        >
-          <span
-            className="text-secondary-foreground 
-          text-sm font-medium tracking-wider 
-          uppercase animate-fade-in"
-          >
-            What People Say
+        <p className="section-label">What People Say</p>
+        <h2 className="section-title">
+          Kind words from{" "}
+          <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            amazing people.
           </span>
-          <h2
-            className="text-4xl md:text-5xl 
-          font-bold mt-4 mb-6 animate-fade-in 
-          animation-delay-100 text-secondary-foreground"
-          >
-            Kind words from{" "}
-            <span
-              className="font-serif italic 
-            font-normal text-white"
-            >
-              amazing people.
-            </span>
-          </h2>
-        </div>
+        </h2>
+      </motion.header>
 
-        {/* Testimonial Carousel */}
-        <div className="max-w-4xl mx-auto">
-          <div className="relative">
-            {/* Main Testimonial */}
-            <div className="glass p-8 rounded-3xl md:p-12 glow-border animate-fade-in animation-delay-200">
-              <div className="absolute -top-4 left-8 w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-                <Quote className="w-6 h-6 text-primary-foreground" />
-              </div>
-
-              <blockquote className="text-xl md:text-2xl font-medium leading-relaxed mb-8 pt-4">
-                "{testimonials[activeIdx].quote}"
-              </blockquote>
-
-              <div className="flex items-center gap-4">
-                <img
-                  src={testimonials[activeIdx].avatar}
-                  alt={testimonials[activeIdx].author}
-                  className="w-14 h-14 rounded-full object-cover ring-2 ring-primary/20"
-                />
-                <div>
-                  <div className="font-semibold">
-                    {testimonials[activeIdx].author}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    {testimonials[activeIdx].role}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Testimonials Navigation */}
-            <div className="flex items-center justify-center gap-4 mt-8">
-              <button
-                className="p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all"
-                onClick={previous}
-              >
-                <ChevronLeft />
-              </button>
-
-              <div className="flex gap-2">
-                {testimonials.map((_, idx) => (
-                  <button
-                    onClick={() => setActiveIdx(idx)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === activeIdx
-                        ? "w-8 bg-primary"
-                        : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                      }`}
-                  />
-                ))}
-              </div>
-
-              <button
-                onClick={next}
-                className="p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all"
-              >
-                <ChevronRight />
-              </button>
-            </div>
+      <motion.div
+        className="mx-auto max-w-4xl relative z-10"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={fadeUp}
+      >
+        {/* Main Testimonial Card */}
+        <div className="frost-card p-8 md:p-12 relative shadow-sm">
+          <div className="absolute -top-4 left-8 inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md">
+            <Quote className="h-6 w-6" />
           </div>
+
+          <motion.blockquote
+            key={activeIdx}
+            initial={{ opacity: 0, x: 12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.35 }}
+            className="text-xl font-medium leading-relaxed text-foreground md:text-2xl pt-4"
+          >
+            &ldquo;{testimonials[activeIdx].quote}&rdquo;
+          </motion.blockquote>
+
+          <motion.div
+            key={`author-${activeIdx}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+            className="mt-8 flex items-center gap-4"
+          >
+            <img
+              src={testimonials[activeIdx].avatar}
+              alt={testimonials[activeIdx].author}
+              className="h-14 w-14 rounded-full object-cover ring-2 ring-primary/20"
+            />
+            <div>
+              <p className="font-semibold text-foreground">
+                {testimonials[activeIdx].author}
+              </p>
+              <p className="text-sm text-muted">
+                {testimonials[activeIdx].role}
+              </p>
+            </div>
+          </motion.div>
         </div>
-      </div>
+
+        {/* Navigation Controls */}
+        <div className="mt-8 flex items-center justify-center gap-4">
+          <button
+            onClick={previous}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:text-primary"
+            aria-label="Previous testimonial"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+
+          <div className="flex gap-2">
+            {testimonials.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveIdx(idx)}
+                aria-label={`Go to testimonial ${idx + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 ${idx === activeIdx
+                  ? "w-8 bg-primary"
+                  : "w-2 bg-border hover:bg-muted"
+                  }`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={next}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:text-primary"
+            aria-label="Next testimonial"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </div>
+      </motion.div>
     </section>
   );
 };
