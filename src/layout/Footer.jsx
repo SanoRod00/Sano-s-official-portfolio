@@ -10,8 +10,8 @@ const footerLinks = [
 ];
 
 const socialLinks = [
-  { href: "https://github.com/sanorod", icon: Github, label: "GitHub" },
-  { href: "https://www.linkedin.com/in/sanorod", icon: Linkedin, label: "LinkedIn" },
+  { href: "https://github.com/SanoRod00", icon: Github, label: "GitHub" },
+  { href: "https://www.linkedin.com/in/rodrigue-sano-ab3849331", icon: Linkedin, label: "LinkedIn" },
   { href: "mailto:sanorod00@gmail.com", icon: Mail, label: "Email" },
 ];
 

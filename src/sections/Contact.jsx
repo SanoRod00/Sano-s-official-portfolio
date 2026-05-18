@@ -9,7 +9,7 @@ const contacts = [
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/sanorod",
+    href: "https://www.linkedin.com/in/rodrigue-sano-ab3849331",
     icon: Linkedin,
   },
 ];

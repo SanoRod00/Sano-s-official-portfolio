@@ -59,7 +59,6 @@ export const About = () => {
             />
           </div>
 
-          <span className="photo-badge left-4 top-4">Kigali, Rwanda</span>
           <span className="photo-badge right-4 bottom-4">Open to Remote</span>
         </motion.div>
 

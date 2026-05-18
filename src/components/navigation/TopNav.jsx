@@ -73,10 +73,10 @@ export const TopNav = () => {
   const toSection = (id) => `/#${id}`;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 py-4 md:px-6">
+    <header className="fixed inset-x-0 top-0 z-50 px-4 py-3 md:px-6">
       <div
-        className={`mx-auto flex w-full max-w-6xl items-center justify-between rounded-full border border-border bg-surface/85 px-4 shadow-[0_10px_32px_rgba(10,20,40,0.12)] backdrop-blur-md transition-all duration-300 md:px-6 ${
-          isScrolled ? "py-3" : "py-4"
+        className={`mx-auto flex w-full max-w-6xl items-center justify-between rounded-full border border-border/60 bg-surface/75 px-5 shadow-[0_4px_24px_rgba(10,20,40,0.09),0_1px_3px_rgba(10,20,40,0.05)] backdrop-blur-[12px] transition-all duration-300 md:px-7 ${
+          isScrolled ? "py-2.5" : "py-3"
         }`}
       >
         <Link to="/" className="inline-flex items-center gap-2 text-xl font-extrabold tracking-tight md:text-2xl">
@@ -84,17 +84,17 @@ export const TopNav = () => {
           Sano Rodrigue
         </Link>
 
-        <nav className="hidden items-center gap-2 rounded-full border border-border bg-surface-muted p-1 md:flex">
+        <nav className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => {
             const isActive = location.pathname === "/" && activeSection === item.id;
             return (
               <Link
                 key={item.id}
                 to={toSection(item.id)}
-                className={`rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 ${
+                className={`rounded-full px-4 py-2 text-sm font-medium tracking-[0.01em] transition-all duration-200 ${
                   isActive
                     ? "bg-primary text-primary-foreground"
-                    : "text-muted hover:bg-surface hover:text-foreground"
+                    : "text-muted hover:text-foreground"
                 }`}
               >
                 {item.label}
@@ -108,9 +108,9 @@ export const TopNav = () => {
             type="button"
             aria-label="Toggle color theme"
             onClick={() => setTheme((curr) => (curr === "dark" ? "light" : "dark"))}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface-muted text-foreground transition-colors duration-200 hover:border-primary/60 hover:text-primary"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-all duration-200 hover:bg-surface-muted hover:text-primary"
           >
-            {theme === "dark" ? <Sun className="h-4.5 w-4.5" /> : <Moon className="h-4.5 w-4.5" />}
+            {theme === "dark" ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />}
           </button>
 
           <Link to={toSection("contact")} className="accent-btn hidden md:inline-flex">
@@ -122,7 +122,7 @@ export const TopNav = () => {
             aria-label="Toggle navigation menu"
             aria-expanded={isOpen}
             onClick={() => setIsOpen((curr) => !curr)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface-muted md:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-all duration-200 hover:bg-surface-muted md:hidden"
           >
             {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>

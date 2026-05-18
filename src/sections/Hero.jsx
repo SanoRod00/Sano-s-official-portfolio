@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
-import { ArrowDown, ArrowRight, Download, Github, Linkedin, Sparkles } from "lucide-react";
+import { ArrowDown, ArrowRight, Download, Github, Linkedin } from "lucide-react";
 
 const socialLinks = [
   {
-    href: "https://www.linkedin.com/in/sanorod",
+    href: "https://www.linkedin.com/in/rodrigue-sano-ab3849331",
     label: "LinkedIn",
     icon: Linkedin,
   },
   {
-    href: "https://github.com/sanorod",
+    href: "https://github.com/SanoRod00",
     label: "GitHub",
     icon: Github,
   },
@@ -41,11 +41,12 @@ const fadeUp = {
 
 export const Hero = () => {
   return (
-    <section className="section-shell section-spacing pt-16 md:pt-24 relative overflow-hidden">
+    <section className="w-full section-spacing pt-16 md:pt-24 relative overflow-hidden">
       {/* Animated gradient orbs */}
       <div className="hero-orb hero-orb--primary" />
       <div className="hero-orb hero-orb--accent" />
 
+      <div className="mx-auto w-full max-w-6xl px-5 md:px-8">
       <motion.div
         className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 relative z-10"
         variants={containerVariants}
@@ -54,8 +55,8 @@ export const Hero = () => {
       >
         <div className="space-y-7">
           <motion.div variants={fadeUp}>
-            <span className="chip">
-              <Sparkles className="h-4 w-4 text-accent" />
+            <span className="status-badge">
+              <span className="status-dot" />
               Open to opportunities
             </span>
           </motion.div>
@@ -114,9 +115,6 @@ export const Hero = () => {
                 fetchPriority="high"
               />
             </div>
-
-            <div className="photo-badge -left-4 top-7 md:-left-7">UI + API</div>
-            <div className="photo-badge -right-4 bottom-14 md:-right-7">Cloud Ready</div>
           </div>
         </motion.div>
       </motion.div>
@@ -154,6 +152,7 @@ export const Hero = () => {
           <ArrowDown className="h-4 w-4" />
         </a>
       </motion.div>
+      </div>
     </section>
   );
 };
