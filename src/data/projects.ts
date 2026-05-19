@@ -1,5 +1,40 @@
 export const projects = [
   {
+    id: "polyvoice",
+    slug: "polyvoice",
+    title: "PolyVoice",
+    hackathonLabel: "2026 CodeXtreme Hackathon — Submitted as Bridgely",
+    hackathonUrl: "https://codextreme26.devpost.com/",
+    statusBadge: "In Development",
+    role: "Project Lead",
+    tagline: "Real-time multilingual voice translation — built at CodeXtreme 2026",
+    description:
+      "PolyVoice (submitted as Bridgely) is a real-time multilingual voice translation platform built during the 2026 CodeXtreme Ingenious Hackathon Season 1. As Project Lead, I managed and tracked all team tasks to completion, driving the project from concept to a working demo.",
+    heroImage: "/projects/polyvoice.png",
+    categories: ["Hackathon", "AI", "Voice"],
+    liveUrl: "https://devpost.com/software/bridegly",
+    repoUrl: "https://github.com/nshizirunguwilson/poly-voice",
+    devpostUrl: "https://devpost.com/software/bridegly",
+    problem:
+      "Language barriers prevent real-time collaboration and communication across multilingual teams, communities, and events — with no lightweight solution that works seamlessly in the browser.",
+    solution:
+      "A browser-based voice translation tool that captures speech, translates it in real time across multiple languages, and plays back the translated audio — breaking down communication barriers without requiring any native install.",
+    features: [
+      "Real-time voice capture and translation",
+      "Multi-language support",
+      "In-browser, no install required",
+      "Team-built at CodeXtreme 2026 hackathon",
+      "Active development with new features shipping continuously",
+    ],
+    techStack: [
+      { name: "JavaScript", icon: "JS" },
+      { name: "Web Speech API", icon: "🎙️" },
+      { name: "Translation API", icon: "🌐" },
+    ],
+    results:
+      "Successfully submitted at the 2026 CodeXtreme Ingenious Hackathon Season 1 under the name Bridgely — still in active development with ongoing feature additions.",
+  },
+  {
     id: "ambarafits",
     slug: "ambarafits",
     title: "Ambara Fits",

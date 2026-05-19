@@ -3,7 +3,7 @@ import { ArrowUpRight, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
 
-const featuredProjects = projects.slice(0, 3);
+const featuredProjects = projects.slice(0, 4);
 
 const fadeUp = {
   hidden: { opacity: 0, y: 22 },
@@ -30,7 +30,7 @@ export const Projects = () => {
       </motion.header>
 
       <motion.div
-        className="grid gap-6 lg:grid-cols-3"
+        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
         variants={stagger}
         initial="hidden"
         whileInView="visible"
@@ -62,9 +62,26 @@ export const Projects = () => {
                   </span>
                 ))}
               </div>
+
+              {project.statusBadge && (
+                <span className="absolute right-3 top-3 rounded-full border border-amber-400/40 bg-amber-400/20 px-2.5 py-1 text-[11px] font-semibold text-amber-300 backdrop-blur">
+                  {project.statusBadge}
+                </span>
+              )}
             </div>
 
             <h3 className="mt-5 text-center text-3xl font-bold leading-tight md:text-4xl">{project.title}</h3>
+
+            {project.hackathonLabel && (
+              <p className="mt-1 text-center text-[11px] font-semibold uppercase tracking-wider text-primary/80">
+                {project.hackathonLabel}
+              </p>
+            )}
+
+            {project.role && (
+              <p className="mt-1 text-center text-xs text-muted">Role: {project.role}</p>
+            )}
+
             <p className="mt-3 text-center text-sm text-muted">{project.tagline}</p>
 
             <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
@@ -77,15 +94,27 @@ export const Projects = () => {
                 <Github className="mr-2 h-4 w-4" />
                 GitHub
               </a>
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="solid-btn px-5 py-2.5 text-sm"
-              >
-                <ArrowUpRight className="mr-2 h-4 w-4" />
-                Live Demo
-              </a>
+              {project.devpostUrl ? (
+                <a
+                  href={project.devpostUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="solid-btn px-5 py-2.5 text-sm"
+                >
+                  <ArrowUpRight className="mr-2 h-4 w-4" />
+                  Devpost
+                </a>
+              ) : (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="solid-btn px-5 py-2.5 text-sm"
+                >
+                  <ArrowUpRight className="mr-2 h-4 w-4" />
+                  Live Demo
+                </a>
+              )}
             </div>
           </motion.article>
         ))}

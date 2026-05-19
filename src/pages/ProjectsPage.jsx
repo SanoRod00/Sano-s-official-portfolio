@@ -44,10 +44,26 @@ export const ProjectsPage = () => {
                     </span>
                   ))}
                 </div>
+
+                {project.statusBadge && (
+                  <span className="absolute right-3 top-3 rounded-full border border-amber-400/40 bg-amber-400/20 px-2.5 py-1 text-[11px] font-semibold text-amber-300 backdrop-blur">
+                    {project.statusBadge}
+                  </span>
+                )}
               </div>
 
               <div className="mt-5 flex items-start justify-between gap-4">
-                <h2 className="text-2xl font-bold leading-tight md:text-3xl">{project.title}</h2>
+                <div>
+                  <h2 className="text-2xl font-bold leading-tight md:text-3xl">{project.title}</h2>
+                  {project.hackathonLabel && (
+                    <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-wider text-primary/80">
+                      {project.hackathonLabel}
+                    </p>
+                  )}
+                  {project.role && (
+                    <p className="mt-0.5 text-xs text-muted">Role: {project.role}</p>
+                  )}
+                </div>
                 <ArrowUpRight className="h-5 w-5 shrink-0 text-primary" />
               </div>
 

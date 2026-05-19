@@ -26,18 +26,49 @@ export const ProjectDetail = () => {
 
         <header className="mb-10 reveal space-y-4">
           <p className="section-label">Case Study</p>
-          <h1 className="text-4xl font-extrabold leading-tight md:text-6xl">{project.title}</h1>
+          <div className="flex flex-wrap items-center gap-3">
+            <h1 className="text-4xl font-extrabold leading-tight md:text-6xl">{project.title}</h1>
+            {project.statusBadge && (
+              <span className="rounded-full border border-amber-400/40 bg-amber-400/20 px-3 py-1 text-sm font-semibold text-amber-300">
+                {project.statusBadge}
+              </span>
+            )}
+          </div>
+
+          {project.hackathonLabel && (
+            <p className="text-sm font-semibold uppercase tracking-wider text-primary/80">
+              {project.hackathonLabel}
+            </p>
+          )}
+
+          {project.role && (
+            <p className="text-base text-muted">Role: <span className="font-semibold text-foreground">{project.role}</span></p>
+          )}
+
           <p className="text-lg leading-relaxed text-muted md:text-2xl">{project.tagline}</p>
 
           <div className="flex flex-wrap gap-3 pt-2">
-            <a href={project.liveUrl} target="_blank" rel="noreferrer" className="solid-btn">
-              Live Demo
-              <ExternalLink className="ml-2 h-4 w-4" />
-            </a>
+            {project.devpostUrl ? (
+              <a href={project.devpostUrl} target="_blank" rel="noreferrer" className="solid-btn">
+                Devpost
+                <ExternalLink className="ml-2 h-4 w-4" />
+              </a>
+            ) : (
+              <a href={project.liveUrl} target="_blank" rel="noreferrer" className="solid-btn">
+                Live Demo
+                <ExternalLink className="ml-2 h-4 w-4" />
+              </a>
+            )}
             <a href={project.repoUrl} target="_blank" rel="noreferrer" className="ghost-btn">
               Source Code
               <Github className="ml-2 h-4 w-4" />
             </a>
+            {project.hackathonUrl && (
+              <a href={project.hackathonUrl} target="_blank" rel="noreferrer" className="ghost-btn">
+                Hackathon
+                <ExternalLink className="ml-2 h-4 w-4" />
+              </a>
+            )}
           </div>
         </header>
 
