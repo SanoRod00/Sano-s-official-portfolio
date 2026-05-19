@@ -49,7 +49,7 @@ export const About = () => {
         >
           <div className="photo-shell">
             <img
-              src="/about-photo.jpg"
+              src="/hero-profile.jpg"
               alt="Portrait of Sano Rodrigue"
               width="1100"
               height="1400"

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:ambarafits.vercel.app)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}
