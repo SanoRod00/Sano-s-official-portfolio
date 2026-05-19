@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 @theme {
+  --font-syne: "Syne", sans-serif;
+  --font-dm-sans: "DM Sans", sans-serif;
   --color-background: #f4f7fb;
   --color-surface: #ffffff;
   --color-surface-muted: #eaf1fb;
@@ -17,10 +19,14 @@
 @layer base {
   :root {
     color-scheme: light;
+    --color-ring-start: #3b5bdb;
+    --color-ring-end:   #f59e0b;
   }
 
   .dark {
     color-scheme: dark;
+    --color-ring-start: #748ffc;
+    --color-ring-end:   #fbbf24;
     --color-background: #09101d;
     --color-surface: #101a2c;
     --color-surface-muted: #16233b;

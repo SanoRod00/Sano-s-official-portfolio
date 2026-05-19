@@ -1,32 +1,38 @@
 export const skillCategories = [
-    {
-        title: "Languages",
-        skills: [
-            { name: "JavaScript", value: 95 },
-            { name: "TypeScript", value: 90 },
-            { name: "Python", value: 78 },
-            { name: "HTML/CSS", value: 96 },
-            { name: "SQL", value: 82 },
-        ],
-    },
-    {
-        title: "Frameworks",
-        skills: [
-            { name: "React", value: 93 },
-            { name: "Next.js", value: 88 },
-            { name: "Node.js", value: 87 },
-            { name: "Express", value: 85 },
-            { name: "Tailwind CSS", value: 92 },
-        ],
-    },
-    {
-        title: "Tools & Platforms",
-        skills: [
-            { name: "Git & GitHub", value: 94 },
-            { name: "Docker", value: 75 },
-            { name: "PostgreSQL", value: 82 },
-            { name: "MongoDB", value: 80 },
-            { name: "Vercel / AWS", value: 78 },
-        ],
-    },
+  {
+    title: "Product & Strategy",
+    skills: [
+      { name: "User Story Writing",  value: 78 },
+      { name: "Product Roadmapping", value: 75 },
+      { name: "Agile / Scrum",       value: 70 },
+      { name: "Figma / Prototyping", value: 68 },
+    ],
+  },
+  {
+    title: "AI & Automation",
+    skills: [
+      { name: "Prompt Engineering",   value: 85 },
+      { name: "OpenAI / Claude APIs", value: 82 },
+      { name: "AI Workflow Design",   value: 80 },
+      { name: "Generative AI Tools",  value: 83 },
+    ],
+  },
+  {
+    title: "Technical Literacy",
+    skills: [
+      { name: "Git & GitHub",         value: 80 },
+      { name: "Node.js / REST APIs",  value: 72 },
+      { name: "Linux / AWS",          value: 74 },
+      { name: "WebSocket / Realtime", value: 70 },
+    ],
+  },
+  {
+    title: "Hardware & Embedded",
+    skills: [
+      { name: "Arduino / Raspberry Pi",   value: 88 },
+      { name: "Circuit Design (EasyEDA)", value: 80 },
+      { name: "PLC / Ladder Logic",       value: 75 },
+      { name: "Tinkercad Simulation",     value: 86 },
+    ],
+  },
 ];
