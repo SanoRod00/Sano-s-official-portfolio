@@ -1,5 +1,29 @@
 export const skillCategories = [
   {
+    title: "Coding Languages",
+    wide: true,
+    skills: [
+      { name: "JavaScript",  value: 78 },
+      { name: "Python",      value: 72 },
+      { name: "C / C++",     value: 80 },
+      { name: "HTML / CSS",  value: 82 },
+      { name: "Bash / Linux",value: 73 },
+      { name: "SQL",         value: 65 },
+    ],
+  },
+  {
+    title: "Frameworks & Libraries",
+    wide: true,
+    skills: [
+      { name: "Express.js",   value: 70 },
+      { name: "Tailwind CSS", value: 74 },
+      { name: "Socket.IO",    value: 72 },
+      { name: "JWT / Auth",   value: 70 },
+      { name: "React Native", value: 50 },
+      { name: "Flutter",      value: 40 },
+    ],
+  },
+  {
     title: "Product & Strategy",
     skills: [
       { name: "User Story Writing",  value: 78 },

@@ -1,72 +1,102 @@
 import { motion } from "framer-motion";
-import { CircleCheckBig } from "lucide-react";
+import { CircleCheck } from "lucide-react";
 
-const clientSkills = [
-  { name: "React", level: "Advanced", value: 92 },
-  { name: "TypeScript", level: "Advanced", value: 89 },
-  { name: "Next.js", level: "Advanced", value: 88 },
-  { name: "Tailwind", level: "Advanced", value: 90 },
-  { name: "Accessibility", level: "Advanced", value: 86 },
-  { name: "UI Architecture", level: "Advanced", value: 87 },
+const SYNE    = "var(--font-syne, 'Syne', sans-serif)";
+const DM_SANS = "var(--font-dm-sans, 'DM Sans', sans-serif)";
+
+const LEVEL_WIDTH = { Advanced: 85, Intermediate: 60, Beginner: 35 };
+
+const card1Skills = [
+  { name: "Product Strategy",      level: "Advanced" },
+  { name: "User Story Writing",    level: "Advanced" },
+  { name: "AI Prompt Engineering", level: "Advanced" },
+  { name: "Figma / Prototyping",   level: "Intermediate" },
+  { name: "Agile / Scrum",         level: "Intermediate" },
+  { name: "REST APIs",             level: "Intermediate" },
 ];
 
-const serverSkills = [
-  { name: "Node.js", level: "Advanced", value: 87 },
-  { name: "Express", level: "Advanced", value: 85 },
-  { name: "PostgreSQL", level: "Intermediate", value: 80 },
-  { name: "MongoDB", level: "Intermediate", value: 79 },
-  { name: "REST APIs", level: "Advanced", value: 89 },
-  { name: "Deployment", level: "Advanced", value: 84 },
+const card2Skills = [
+  { name: "Arduino / Raspberry Pi",   level: "Advanced" },
+  { name: "Circuit Design (EasyEDA)", level: "Advanced" },
+  { name: "Node.js / Express",        level: "Intermediate" },
+  { name: "Linux / AWS Deployment",   level: "Intermediate" },
+  { name: "PLC / Ladder Logic",       level: "Intermediate" },
+  { name: "WebSocket / Realtime",     level: "Intermediate" },
 ];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 22 },
+  hidden:  { opacity: 0, y: 22 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
 };
 
 const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
+  hidden:  {},
+  visible: { transition: { staggerChildren: 0.12 } },
 };
 
-const SkillBar = ({ skill }) => {
+const SkillRow = ({ skill, index }) => {
+  const width = LEVEL_WIDTH[skill.level] ?? 50;
+
   return (
     <div>
-      <div className="mb-2 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <CircleCheckBig className="h-4.5 w-4.5 text-primary" />
-          <p className="text-base font-semibold md:text-lg">{skill.name}</p>
+      <div className="mb-2.5 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5">
+          <CircleCheck
+            className="h-5 w-5 shrink-0"
+            style={{ color: "var(--color-ring-start)" }}
+            aria-hidden="true"
+          />
+          <span
+            className="text-base font-medium text-foreground"
+            style={{ fontFamily: DM_SANS }}
+          >
+            {skill.name}
+          </span>
         </div>
-        <p className="text-sm font-medium text-muted">{skill.level}</p>
+        <span
+          className="shrink-0 text-sm text-muted"
+          style={{ fontFamily: DM_SANS }}
+        >
+          {skill.level}
+        </span>
       </div>
-      <div className="h-2 w-full rounded-full bg-surface-muted overflow-hidden">
+
+      {/* Progress bar — 6px, gradient, staggered scroll animation */}
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
         <motion.div
-          className="h-full rounded-full bg-gradient-to-r from-primary to-accent"
+          className="h-full rounded-full"
+          style={{
+            background: "linear-gradient(to right, var(--color-ring-start), var(--color-ring-end))",
+          }}
           initial={{ width: 0 }}
-          whileInView={{ width: `${skill.value}%` }}
+          whileInView={{ width: `${width}%` }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.1 + index * 0.08 }}
         />
       </div>
     </div>
   );
 };
 
-const SkillCard = ({ title, skills }) => {
-  return (
-    <motion.article
-      className="soft-card hover-lift p-7 shadow-sm md:p-8"
-      variants={fadeUp}
+const SkillCard = ({ title, skills }) => (
+  <motion.article
+    className="soft-card p-8 shadow-lg md:p-10"
+    variants={fadeUp}
+  >
+    <h3
+      className="mb-8 text-center text-2xl font-bold text-foreground md:text-3xl"
+      style={{ fontFamily: SYNE }}
     >
-      <h3 className="mb-7 text-center text-3xl font-bold text-foreground md:text-4xl">{title}</h3>
-      <div className="space-y-5">
-        {skills.map((skill) => (
-          <SkillBar key={skill.name} skill={skill} />
-        ))}
-      </div>
-    </motion.article>
-  );
-};
+      {title}
+    </h3>
+
+    <div className="space-y-5">
+      {skills.map((skill, i) => (
+        <SkillRow key={skill.name} skill={skill} index={i} />
+      ))}
+    </div>
+  </motion.article>
+);
 
 export const Experience = () => {
   return (
@@ -79,7 +109,9 @@ export const Experience = () => {
         variants={fadeUp}
       >
         <p className="section-label">Explore My</p>
-        <h2 className="section-title">Experience</h2>
+        <h2 className="section-title" style={{ fontFamily: SYNE }}>
+          Experience
+        </h2>
       </motion.header>
 
       <motion.div
@@ -89,8 +121,8 @@ export const Experience = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
-        <SkillCard title="Client & Product Engineering" skills={clientSkills} />
-        <SkillCard title="Backend & Platform Engineering" skills={serverSkills} />
+        <SkillCard title="Product & AI Engineering"       skills={card1Skills} />
+        <SkillCard title="Hardware & Backend Engineering" skills={card2Skills} />
       </motion.div>
     </section>
   );
