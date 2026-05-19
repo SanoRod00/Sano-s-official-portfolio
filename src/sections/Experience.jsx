@@ -1,9 +1,6 @@
 import { motion } from "framer-motion";
 import { CircleCheck } from "lucide-react";
 
-const SYNE    = "var(--font-syne, 'Syne', sans-serif)";
-const DM_SANS = "var(--font-dm-sans, 'DM Sans', sans-serif)";
-
 const LEVEL_WIDTH = { Advanced: 85, Intermediate: 60, Beginner: 35 };
 
 const card1Skills = [
@@ -42,26 +39,14 @@ const SkillRow = ({ skill, index }) => {
       <div className="mb-2.5 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <CircleCheck
-            className="h-5 w-5 shrink-0"
-            style={{ color: "var(--color-ring-start)" }}
+            className="h-5 w-5 shrink-0 text-primary"
             aria-hidden="true"
           />
-          <span
-            className="text-base font-medium text-foreground"
-            style={{ fontFamily: DM_SANS }}
-          >
-            {skill.name}
-          </span>
+          <span className="text-base font-medium text-foreground">{skill.name}</span>
         </div>
-        <span
-          className="shrink-0 text-sm text-muted"
-          style={{ fontFamily: DM_SANS }}
-        >
-          {skill.level}
-        </span>
+        <span className="shrink-0 text-sm text-muted">{skill.level}</span>
       </div>
 
-      {/* Progress bar — 6px, gradient, staggered scroll animation */}
       <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
         <motion.div
           className="h-full rounded-full"
@@ -79,14 +64,8 @@ const SkillRow = ({ skill, index }) => {
 };
 
 const SkillCard = ({ title, skills }) => (
-  <motion.article
-    className="soft-card p-8 shadow-lg md:p-10"
-    variants={fadeUp}
-  >
-    <h3
-      className="mb-8 text-center text-2xl font-bold text-foreground md:text-3xl"
-      style={{ fontFamily: SYNE }}
-    >
+  <motion.article className="soft-card p-8 shadow-lg md:p-10" variants={fadeUp}>
+    <h3 className="mb-8 text-center text-2xl font-bold text-foreground md:text-3xl">
       {title}
     </h3>
 
@@ -109,9 +88,7 @@ export const Experience = () => {
         variants={fadeUp}
       >
         <p className="section-label">Explore My</p>
-        <h2 className="section-title" style={{ fontFamily: SYNE }}>
-          Experience
-        </h2>
+        <h2 className="section-title">Experience</h2>
       </motion.header>
 
       <motion.div

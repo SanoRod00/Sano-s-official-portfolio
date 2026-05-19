@@ -6,9 +6,6 @@ const STROKE_WIDTH = 8;
 const RADIUS       = (RING_SIZE - STROKE_WIDTH) / 2;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
-const SYNE    = "var(--font-syne, 'Syne', sans-serif)";
-const DM_SANS = "var(--font-dm-sans, 'DM Sans', sans-serif)";
-
 const fadeUp = {
   hidden:  { opacity: 0, y: 22 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
@@ -56,18 +53,12 @@ const RadialRing = ({ value, name }) => {
           />
         </svg>
 
-        <span
-          className="absolute inset-0 flex items-center justify-center text-sm font-bold text-foreground"
-          style={{ fontFamily: DM_SANS }}
-        >
+        <span className="absolute inset-0 flex items-center justify-center text-sm font-bold text-foreground">
           {value}%
         </span>
       </div>
 
-      <p
-        className="w-[80px] text-center text-xs leading-tight text-muted"
-        style={{ fontFamily: DM_SANS }}
-      >
+      <p className="w-[80px] text-center text-xs leading-tight text-muted">
         {name}
       </p>
     </motion.div>
@@ -75,18 +66,11 @@ const RadialRing = ({ value, name }) => {
 };
 
 const SkillCard = ({ category }) => {
-  const isWide = category.wide;
-  const innerCols = isWide ? "grid-cols-3" : "grid-cols-2";
+  const innerCols = category.wide ? "grid-cols-3" : "grid-cols-2";
 
   return (
-    <motion.div
-      className="soft-card p-6 shadow-sm md:p-8"
-      variants={fadeUp}
-    >
-      <h3
-        className="mb-7 text-center text-lg font-bold text-foreground md:text-xl"
-        style={{ fontFamily: SYNE }}
-      >
+    <motion.div className="soft-card p-6 shadow-sm md:p-8" variants={fadeUp}>
+      <h3 className="mb-7 text-center text-lg font-bold text-foreground md:text-xl">
         {category.title}
       </h3>
 
@@ -111,7 +95,6 @@ const normalCards = skillCategories.filter((c) => !c.wide);
 export const Skills = () => {
   return (
     <section id="skills" className="section-shell section-spacing">
-      {/* Single shared gradient for all rings */}
       <svg aria-hidden="true" width="0" height="0" style={{ position: "absolute" }}>
         <defs>
           <linearGradient id="skill-ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -129,12 +112,9 @@ export const Skills = () => {
         variants={fadeUp}
       >
         <p className="section-label">What I Work With</p>
-        <h2 className="section-title" style={{ fontFamily: SYNE }}>
-          Skills
-        </h2>
+        <h2 className="section-title">Skills</h2>
       </motion.header>
 
-      {/* Row 1 — Technical cards: Coding Languages + Frameworks (full width, side by side) */}
       <motion.div
         className="grid gap-6 grid-cols-1 sm:grid-cols-2"
         variants={stagger}
@@ -147,7 +127,6 @@ export const Skills = () => {
         ))}
       </motion.div>
 
-      {/* Row 2 — Skill cards: 2×2 grid (Product, AI, Technical, Hardware) */}
       <motion.div
         className="mt-6 grid gap-6 grid-cols-1 sm:grid-cols-2"
         variants={stagger}
