@@ -207,6 +207,50 @@
     animation: dot-pulse 2.2s ease-in-out infinite;
   }
 
+  /* Project card */
+  .project-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.75rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    transition:
+      box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.35s ease;
+  }
+
+  .project-card:hover {
+    border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+    box-shadow:
+      0 28px 72px color-mix(in srgb, var(--color-primary) 18%, transparent),
+      0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Shimmer sweep across top on hover */
+  .project-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-primary) 30%,
+      var(--color-accent) 70%,
+      transparent
+    );
+    transition: left 0s;
+    z-index: 20;
+    pointer-events: none;
+  }
+
+  .project-card:hover::before {
+    left: 100%;
+    transition: left 0.75s ease;
+  }
+
   /* SVG skill ring */
   .skill-ring {
     transform: rotate(-90deg);

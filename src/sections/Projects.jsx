@@ -6,13 +6,13 @@ import { projects } from "@/data/projects";
 const featuredProjects = projects.slice(0, 4);
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 22 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
 const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
+  visible: { transition: { staggerChildren: 0.13 } },
 };
 
 export const Projects = () => {
@@ -30,98 +30,120 @@ export const Projects = () => {
       </motion.header>
 
       <motion.div
-        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        className="grid gap-7 sm:grid-cols-2"
         variants={stagger}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: true, amount: 0.1 }}
       >
         {featuredProjects.map((project) => (
           <motion.article
             key={project.id}
-            className="soft-card hover-lift group overflow-hidden p-5 shadow-sm"
+            className="project-card group"
             variants={fadeUp}
+            whileHover={{ y: -6, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
           >
-            <div className="relative overflow-hidden rounded-[1.35rem] border border-border">
+            {/* Image */}
+            <div className="relative overflow-hidden rounded-t-[1.65rem]">
               <img
                 src={project.heroImage}
                 alt={project.title}
                 width="820"
-                height="620"
+                height="512"
                 loading="lazy"
                 decoding="async"
-                className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+                className="aspect-[16/10] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
               />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/90 via-surface/10 to-transparent" />
 
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent opacity-70" />
-
-              <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
-                {project.categories.slice(0, 2).map((category) => (
-                  <span key={category} className="rounded-full border border-white/35 bg-black/35 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur">
-                    {category}
+              <div className="absolute left-4 top-4 flex flex-wrap gap-1.5">
+                {project.categories.slice(0, 2).map((cat) => (
+                  <span
+                    key={cat}
+                    className="rounded-full border border-white/30 bg-black/45 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur-sm"
+                  >
+                    {cat}
                   </span>
                 ))}
               </div>
 
               {project.statusBadge && (
-                <span className="absolute right-3 top-3 rounded-full border border-amber-400/40 bg-amber-400/20 px-2.5 py-1 text-[11px] font-semibold text-amber-300 backdrop-blur">
+                <span className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full border border-amber-400/40 bg-black/55 px-3 py-1 text-[11px] font-semibold text-amber-300 backdrop-blur-sm">
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-400" />
                   {project.statusBadge}
                 </span>
               )}
             </div>
 
-            <h3 className="mt-5 text-center text-3xl font-bold leading-tight md:text-4xl">{project.title}</h3>
+            {/* Content */}
+            <div className="flex flex-col gap-3 p-6">
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="text-xl font-bold leading-snug tracking-tight md:text-2xl">
+                  {project.title}
+                </h3>
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-surface-muted text-primary transition-all duration-300 group-hover:rotate-45 group-hover:border-primary/50 group-hover:bg-primary group-hover:text-primary-foreground">
+                  <ArrowUpRight className="h-4 w-4" />
+                </div>
+              </div>
 
-            {project.hackathonLabel && (
-              <p className="mt-1 text-center text-[11px] font-semibold uppercase tracking-wider text-primary/80">
-                {project.hackathonLabel}
-              </p>
-            )}
-
-            {project.role && (
-              <p className="mt-1 text-center text-xs text-muted">Role: {project.role}</p>
-            )}
-
-            <p className="mt-3 text-center text-sm text-muted">{project.tagline}</p>
-
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-              <a
-                href={project.repoUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="ghost-btn px-5 py-2.5 text-sm"
-              >
-                <Github className="mr-2 h-4 w-4" />
-                GitHub
-              </a>
-              {project.devpostUrl ? (
-                <a
-                  href={project.devpostUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="solid-btn px-5 py-2.5 text-sm"
-                >
-                  <ArrowUpRight className="mr-2 h-4 w-4" />
-                  Devpost
-                </a>
-              ) : (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="solid-btn px-5 py-2.5 text-sm"
-                >
-                  <ArrowUpRight className="mr-2 h-4 w-4" />
-                  Live Demo
-                </a>
+              {project.hackathonLabel && (
+                <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-primary">
+                  🏆 {project.hackathonLabel}
+                </span>
               )}
+
+              {project.role && (
+                <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-border bg-surface-muted px-3 py-1 text-xs font-medium text-muted">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  {project.role}
+                </span>
+              )}
+
+              <p className="line-clamp-2 text-sm leading-relaxed text-muted">
+                {project.tagline}
+              </p>
+
+              <div className="h-px bg-border" />
+
+              <div className="flex gap-2.5">
+                <a
+                  href={project.repoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ghost-btn flex-1 px-4 py-2.5 text-sm"
+                >
+                  <Github className="mr-2 h-3.5 w-3.5" />
+                  GitHub
+                </a>
+                {project.devpostUrl ? (
+                  <a
+                    href={project.devpostUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="solid-btn flex-1 px-4 py-2.5 text-sm"
+                  >
+                    <ArrowUpRight className="mr-2 h-3.5 w-3.5" />
+                    Devpost
+                  </a>
+                ) : (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="solid-btn flex-1 px-4 py-2.5 text-sm"
+                  >
+                    <ArrowUpRight className="mr-2 h-3.5 w-3.5" />
+                    Live Demo
+                  </a>
+                )}
+              </div>
             </div>
           </motion.article>
         ))}
       </motion.div>
 
       <motion.div
-        className="mt-10 flex justify-center"
+        className="mt-12 flex justify-center"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}

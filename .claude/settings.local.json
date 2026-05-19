@@ -4,7 +4,9 @@
       "WebFetch(domain:ambarafits.vercel.app)",
       "WebFetch(domain:github.com)",
       "Bash(gh api *)",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\mpano\\\\Downloads\\\\Sano-s-official-portfolio\" -Name \"tailwind.config.*\" -o \"vite.config.*\" -o \"package.json\")",
+      "Bash(Select-Object -First 10)"
     ]
   }
 }
