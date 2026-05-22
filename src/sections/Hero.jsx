@@ -41,6 +41,81 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
 };
 
+const AVATAR_SIZE = "clamp(240px, 28vw, 380px)";
+
+const HeroAvatar = () => (
+  <motion.div
+    className="flex justify-center items-center"
+    initial={{ opacity: 0, x: 40 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+  >
+    <motion.div
+      animate={{ y: [0, -14, 0] }}
+      transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+      style={{ position: "relative", width: AVATAR_SIZE, height: AVATAR_SIZE }}
+    >
+      {/* Glow aura */}
+      <div
+        style={{
+          position: "absolute",
+          inset: "-24px",
+          borderRadius: "9999px",
+          boxShadow:
+            "0 0 60px 20px color-mix(in srgb, var(--color-primary) 28%, transparent), 0 0 100px 40px color-mix(in srgb, var(--color-accent) 14%, transparent)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Spinning conic-gradient ring — first child, sits behind image */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          borderRadius: "9999px",
+          background:
+            "conic-gradient(from 0deg, var(--color-primary), var(--color-accent), var(--color-primary))",
+          animation: "spin-ring 4s linear infinite",
+        }}
+      />
+
+      {/* Image container — second child, naturally above ring */}
+      <div
+        style={{
+          position: "absolute",
+          inset: "4px",
+          borderRadius: "9999px",
+          overflow: "hidden",
+          background: "var(--color-background)",
+        }}
+      >
+        <img
+          src="/hero-avatar.png"
+          alt="Sano Rodrigue"
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
+        />
+      </div>
+
+      {/* Status badge */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "-1.75rem",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 10,
+          whiteSpace: "nowrap",
+        }}
+      >
+        <span className="status-badge shadow-md">
+          <span className="status-dot" />
+          Open to opportunities
+        </span>
+      </div>
+    </motion.div>
+  </motion.div>
+);
+
 export const Hero = () => {
   const [step, setStep] = useState(0);
   const [nameText, setNameText] = useState("");
@@ -52,12 +127,10 @@ export const Hero = () => {
     let isMounted = true;
 
     const runAnimations = async () => {
-      // Step 1: Delay 0.2s before fading in "HELLO, I'M"
       await new Promise((r) => setTimeout(r, 200));
       if (!isMounted) return;
       setStep(1);
 
-      // Step 2 starts at delay 0.8s from page load (0.6s after step 1 starts)
       await new Promise((r) => setTimeout(r, 600));
       if (!isMounted) return;
       setStep(2);
@@ -72,12 +145,10 @@ export const Hero = () => {
         await new Promise((r) => setTimeout(r, 80));
       }
 
-      // Cursor disappears after name is fully typed after 1.2s
       await new Promise((r) => setTimeout(r, 1200));
       if (!isMounted) return;
       setShowNameCursor(false);
 
-      // Step 3: Type out subtitle
       setStep(3);
       setShowTitleCursor(true);
       const fullTitle = "Fullstack Engineer crafting end-to-end products.";
@@ -91,17 +162,14 @@ export const Hero = () => {
       if (!isMounted) return;
       setShowTitleCursor(false);
 
-      // Step 4: Subtitle paragraph fades + slides up
       setStep(4);
       await new Promise((r) => setTimeout(r, 700));
       if (!isMounted) return;
 
-      // Step 5: Buttons appear with staggered bounce
       setStep(5);
       await new Promise((r) => setTimeout(r, 120 * 3 + 300));
       if (!isMounted) return;
 
-      // Step 6: Social icons pop in last
       setStep(6);
     };
 
@@ -114,148 +182,124 @@ export const Hero = () => {
 
   return (
     <section className="w-full section-spacing pt-16 md:pt-24 relative overflow-hidden">
-      {/* Background Photo */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <img
-          src="/hero-profile.jpg"
-          alt="Sano Rodrigue Background"
-          className="absolute inset-0 w-full h-full object-cover object-[center_top] animate-kenburns"
-        />
-        
-        {/* Light Mode Desktop Overlay */}
-        <div 
-          className="absolute inset-0 animate-breathe hidden md:block dark:hidden"
-          style={{
-            background: `linear-gradient(135deg, rgba(235, 240, 255, 0.82) 0%, rgba(219, 228, 255, 0.70) 40%, rgba(255, 235, 210, 0.50) 100%)`,
-          }}
-        />
-        {/* Light Mode Mobile Overlay (0.88 opacity) */}
-        <div 
-          className="absolute inset-0 animate-breathe md:hidden dark:hidden"
-          style={{
-            background: `linear-gradient(135deg, rgba(235, 240, 255, 0.88) 0%, rgba(219, 228, 255, 0.88) 40%, rgba(255, 235, 210, 0.88) 100%)`,
-          }}
-        />
-        
-        {/* Dark Mode Desktop Overlay */}
-        <div 
-          className="absolute inset-0 animate-breathe hidden md:dark:block"
-          style={{
-            background: `rgba(10, 15, 40, 0.78)`
-          }}
-        />
-        {/* Dark Mode Mobile Overlay (0.88 opacity) */}
-        <div 
-          className="absolute inset-0 animate-breathe hidden dark:block md:dark:hidden"
-          style={{
-            background: `rgba(10, 15, 40, 0.88)`
-          }}
-        />
-      </div>
+      {/* Gradient orb background */}
+      <div className="hero-orb hero-orb--primary" />
+      <div className="hero-orb hero-orb--accent" />
 
       {/* Floating particle universe — z-[2], between bg (z-0) and content (z-10) */}
       <FloatingUniverse />
 
       <div className="mx-auto w-full max-w-6xl px-5 md:px-8 relative z-10">
-        <div className="max-w-2xl space-y-7">
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={step >= 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
-            <span className="status-badge">
-              <span className="status-dot" />
-              Open to opportunities
-            </span>
-          </motion.div>
+        {/* Two-column grid: text left, avatar right */}
+        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
 
-          <div className="space-y-5">
-            <motion.p
+          {/* ── Left column: text content ── */}
+          <div className="space-y-7">
+            <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={step >= 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="text-base font-semibold uppercase tracking-[0.2em] text-muted md:text-lg"
             >
-              Hello, I&apos;m
-            </motion.p>
-            <h1 className="hero-gradient-title text-5xl font-extrabold leading-[1.05] tracking-tight md:text-7xl min-h-[1.1em]">
-              {nameText}
-              {showNameCursor && <span className="animate-pulse">▌</span>}
-            </h1>
-            <p className="text-2xl font-semibold text-muted md:text-4xl min-h-[1.5em]">
-              {titleText}
-              {showTitleCursor && <span className="animate-pulse">▌</span>}
-            </p>
-          </div>
+              <span className="status-badge">
+                <span className="status-dot" />
+                Open to opportunities
+              </span>
+            </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={step >= 4 ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="max-w-2xl text-base leading-relaxed text-muted md:text-lg"
-          >
-            From pixel-perfect UIs to scalable APIs — I ship complete, production-ready web products.
-          </motion.p>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <motion.a
-              href="#projects"
-              className="solid-btn"
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={step >= 5 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
-              transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0 }}
-            >
-              View Projects
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </motion.a>
-            <motion.a
-              href="#contact"
-              className="ghost-btn"
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={step >= 5 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
-              transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.12 }}
-            >
-              Contact Me
-            </motion.a>
-            <motion.a
-              href="/resume.pdf"
-              download
-              className="ghost-btn"
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={step >= 5 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
-              transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.24 }}
-            >
-              <Download className="mr-2 h-4 w-4" />
-              Resume
-            </motion.a>
-          </div>
-
-          <div className="flex items-center gap-3 h-11">
-            {socialLinks.map((item, index) => (
-              <motion.a
-                key={item.label}
-                href={item.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={item.label}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:text-primary"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={step >= 6 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 12,
-                  delay: index * 0.08,
-                }}
+            <div className="space-y-5">
+              <motion.p
+                initial={{ opacity: 0, y: -10 }}
+                animate={step >= 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="text-base font-semibold uppercase tracking-[0.2em] text-muted md:text-lg"
               >
-                <item.icon className="h-5 w-5" />
+                Hello, I&apos;m
+              </motion.p>
+              <h1 className="hero-gradient-title text-5xl font-extrabold leading-[1.05] tracking-tight md:text-7xl min-h-[1.1em]">
+                {nameText}
+                {showNameCursor && <span className="animate-pulse">▌</span>}
+              </h1>
+              <p className="text-2xl font-semibold text-muted md:text-4xl min-h-[1.5em]">
+                {titleText}
+                {showTitleCursor && <span className="animate-pulse">▌</span>}
+              </p>
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={step >= 4 ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="max-w-xl text-base leading-relaxed text-muted md:text-lg"
+            >
+              From pixel-perfect UIs to scalable APIs — I ship complete, production-ready web products.
+            </motion.p>
+
+            <div className="flex flex-wrap items-center gap-3">
+              <motion.a
+                href="#projects"
+                className="solid-btn"
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={step >= 5 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
+                transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0 }}
+              >
+                View Projects
+                <ArrowRight className="ml-2 h-4 w-4" />
               </motion.a>
-            ))}
+              <motion.a
+                href="#contact"
+                className="ghost-btn"
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={step >= 5 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
+                transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.12 }}
+              >
+                Contact Me
+              </motion.a>
+              <motion.a
+                href="/resume.pdf"
+                download
+                className="ghost-btn"
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={step >= 5 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
+                transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.24 }}
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Resume
+              </motion.a>
+            </div>
+
+            <div className="flex items-center gap-3 h-11">
+              {socialLinks.map((item, index) => (
+                <motion.a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={item.label}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:text-primary"
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={step >= 6 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 12,
+                    delay: index * 0.08,
+                  }}
+                >
+                  <item.icon className="h-5 w-5" />
+                </motion.a>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Right column: avatar ── */}
+          <div className="hidden lg:flex justify-center items-center pb-8">
+            <HeroAvatar />
           </div>
         </div>
 
+        {/* Capabilities grid */}
         <motion.div
-          className="mt-10 grid gap-4 md:grid-cols-3 relative z-10"
+          className="mt-14 grid gap-4 md:grid-cols-3 relative z-10"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"

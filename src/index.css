@@ -376,6 +376,10 @@
     animation: breathe 8s ease-in-out infinite;
   }
 
+  @keyframes spin-ring {
+    to { transform: rotate(360deg); }
+  }
+
   /* Floating universe — 8 drift variants */
   @keyframes float-1 {
     0%,100% { transform: translate(0px,0px) rotate(0deg); }

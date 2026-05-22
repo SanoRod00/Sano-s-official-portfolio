@@ -6,7 +6,9 @@
       "Bash(gh api *)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\mpano\\\\Downloads\\\\Sano-s-official-portfolio\" -Name \"tailwind.config.*\" -o \"vite.config.*\" -o \"package.json\")",
-      "Bash(Select-Object -First 10)"
+      "Bash(Select-Object -First 10)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173)"
     ]
   }
 }
