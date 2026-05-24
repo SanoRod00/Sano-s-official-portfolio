@@ -25,7 +25,7 @@ export const Projects = () => {
         viewport={{ once: true, amount: 0.5 }}
         variants={fadeUp}
       >
-        <p className="section-label">Browse My Recent</p>
+        <p className="section-label">Things I've Built</p>
         <h2 className="section-title">Projects</h2>
       </motion.header>
 
@@ -106,15 +106,17 @@ export const Projects = () => {
               <div className="h-px bg-border" />
 
               <div className="flex gap-2.5">
-                <a
-                  href={project.repoUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="ghost-btn flex-1 px-4 py-2.5 text-sm"
-                >
-                  <Github className="mr-2 h-3.5 w-3.5" />
-                  GitHub
-                </a>
+                {project.repoUrl && (
+                  <a
+                    href={project.repoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="ghost-btn flex-1 px-4 py-2.5 text-sm"
+                  >
+                    <Github className="mr-2 h-3.5 w-3.5" />
+                    GitHub
+                  </a>
+                )}
                 {project.devpostUrl ? (
                   <a
                     href={project.devpostUrl}
@@ -125,7 +127,7 @@ export const Projects = () => {
                     <ArrowUpRight className="mr-2 h-3.5 w-3.5" />
                     Devpost
                   </a>
-                ) : (
+                ) : project.liveUrl ? (
                   <a
                     href={project.liveUrl}
                     target="_blank"
@@ -133,9 +135,9 @@ export const Projects = () => {
                     className="solid-btn flex-1 px-4 py-2.5 text-sm"
                   >
                     <ArrowUpRight className="mr-2 h-3.5 w-3.5" />
-                    Live Demo
+                    {project.liveLabel ?? "Live Demo"}
                   </a>
-                )}
+                ) : null}
               </div>
             </div>
           </motion.article>

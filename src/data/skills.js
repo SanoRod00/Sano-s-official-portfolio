@@ -15,12 +15,12 @@ export const skillCategories = [
     title: "Frameworks & Libraries",
     wide: true,
     skills: [
+      { name: "React",        value: 85 },
       { name: "Express.js",   value: 70 },
       { name: "Tailwind CSS", value: 74 },
       { name: "Socket.IO",    value: 72 },
       { name: "JWT / Auth",   value: 70 },
-      { name: "React Native", value: 50 },
-      { name: "Flutter",      value: 40 },
+      { name: "Flutter",      value: 60 },
     ],
   },
   {
@@ -42,7 +42,7 @@ export const skillCategories = [
     ],
   },
   {
-    title: "Technical Literacy",
+    title: "Tools & Infrastructure",
     skills: [
       { name: "Git & GitHub",         value: 80 },
       { name: "Node.js / REST APIs",  value: 72 },

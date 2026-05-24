@@ -36,12 +36,13 @@ export const About = () => {
         viewport={{ once: true, amount: 0.5 }}
         variants={fadeUp}
       >
-        <p className="section-label">Get To Know More</p>
-        <h2 className="section-title">About Me</h2>
+        <p className="section-label">A Bit About Me</p>
+        <h2 className="section-title">About</h2>
       </motion.header>
 
       <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
         <motion.div
+          className="relative"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
@@ -85,7 +86,7 @@ export const About = () => {
           </div>
 
           <motion.p className="text-lg leading-relaxed text-muted md:text-xl" variants={fadeUp}>
-            Fullstack engineer from Kigali, Rwanda. I design intuitive interfaces, build scalable backends, and ship complete products — from idea to deployment.
+            Fullstack engineer from Kigali, Rwanda. I design intuitive interfaces, build scalable backends, and ship complete products, from idea to deployment.
           </motion.p>
 
           <motion.div variants={fadeUp}>

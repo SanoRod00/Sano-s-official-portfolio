@@ -3,7 +3,7 @@ export const projects = [
     id: "polyvoice",
     slug: "polyvoice",
     title: "PolyVoice",
-    hackathonLabel: "2026 CodeXtreme Hackathon — Submitted as Bridgely",
+    hackathonLabel: "2026 CodeXtreme Hackathon, submitted as Bridgely",
     hackathonUrl: "https://codextreme26.devpost.com/",
     statusBadge: "In Development",
     role: "Product Lead & Co-Founder / Pitch",
@@ -78,7 +78,7 @@ export const projects = [
     title: "PhishGuard",
     tagline: "Production-grade email security analyzer with full auth stack",
     description:
-      "A protected email-review workspace for analyzing suspicious URLs and sender addresses, backed by a production-style authentication layer with JWT, rotating refresh tokens, CSRF protection, and email verification flows.",
+      "A workspace where you can safely check suspicious emails and URLs. It has a full auth system — login, email verification, password reset, rate limiting, and CSRF protection — all production-ready.",
     heroImage: "/projects/phishguard.png",
     categories: ["Node.js", "Express", "PostgreSQL"],
     liveUrl: "https://phishguard-ql8z.onrender.com",
@@ -105,12 +105,83 @@ export const projects = [
       "Deployed on Render with a full production-style auth system — demonstrating secure backend architecture and real-world security engineering practices.",
   },
   {
+    id: "beatsapp",
+    slug: "beatsapp",
+    title: "ORISHA",
+    tagline: "Africa's beat marketplace for producers, artists, and freestylers",
+    description:
+      "A full-stack marketplace where African music producers sell beats and artists buy them — with automatic licensing, mobile money payments, crypto (USDC/USDT), ACRCloud copyright protection, and in-browser vocal recording for freestylers.",
+    heroImage: "/projects/beatsapp.png",
+    categories: ["React", "Node.js", "PostgreSQL"],
+    repoUrl: "https://github.com/SanoRod00/Beats-App",
+    problem:
+      "African producers sell beats through informal channels — WhatsApp, DMs, cash handoffs — with no contracts, no copyright protection, and no reliable payment infrastructure. Artists have no trusted place to discover and license beats legally.",
+    solution:
+      "A marketplace platform that handles everything: producers upload beats, set three-tier licensing prices, and get paid instantly via card, mobile money (MTN, Airtel), or stablecoin. ACRCloud fingerprints every beat for copyright protection, and PDF licenses are generated automatically on purchase.",
+    features: [
+      "Three-tier licensing system with custom pricing per beat",
+      "ACRCloud beat fingerprinting for copyright monitoring",
+      "Payments via Stripe, Flutterwave (mobile money), and Coinbase Commerce (crypto)",
+      "Watermarked preview downloads before purchase",
+      "Revenue splitting for collaborative producer tracks",
+      "In-browser vocal recording for freestylers",
+      "Weekly battle competitions with crypto prize payouts",
+      "Available in English, French, Portuguese, and Swahili",
+    ],
+    techStack: [
+      { name: "React 18 + Vite", icon: "⚛️" },
+      { name: "Node.js + Express", icon: "🟢" },
+      { name: "PostgreSQL + Prisma", icon: "🐘" },
+      { name: "Tailwind CSS + Framer Motion", icon: "🎨" },
+      { name: "Zustand", icon: "🗂️" },
+      { name: "Stripe + Flutterwave + Coinbase", icon: "💳" },
+      { name: "ACRCloud (audio fingerprinting)", icon: "🎵" },
+      { name: "Cloudflare R2 + CDN", icon: "☁️" },
+    ],
+    results:
+      "A production-ready marketplace built from scratch — covering payments, licensing, copyright protection, multi-language support, and real-time audio. Demonstrates full-stack depth across frontend, backend, payments, and media infrastructure.",
+  },
+  {
+    id: "bestburger",
+    slug: "bestburger",
+    title: "BestBurger",
+    tagline: "Mobile UI design for a food ordering app",
+    description:
+      "A complete mobile app UI for a burger restaurant — splash screen, home feed with category filters and ratings, product detail with spice and portion controls, and a full customization screen for toppings and sides. Designed in Figma.",
+    heroImage: "/projects/bestburger.png",
+    liveUrl: "https://www.figma.com/design/tk6OprbTiCc3Z4DCcTrKbi/BestBurger-UI-template?node-id=0-1&t=zGPUwiPS3N4rxNhm-1",
+    liveLabel: "View in Figma",
+    categories: ["Figma", "UI/UX", "Mobile"],
+    screenshots: [
+      "/projects/bestburger-1.png",
+      "/projects/bestburger-2.png",
+      "/projects/bestburger-3.png",
+    ],
+    problem:
+      "Food ordering apps often feel cluttered — too many options on screen at once, hard to browse by category, and customization flows that lose users before they reach checkout.",
+    solution:
+      "A focused 4-screen mobile UI: a bold splash screen, a home feed with search and category filters, a product detail page with spice level and portion controls, and a customization screen for toppings and sides — all tied together with a consistent dark red brand palette.",
+    features: [
+      "Splash screen with brand identity and logo",
+      "Home feed with search bar and category filters (All, Combos, Sliders)",
+      "Product cards with star ratings and wishlist toggles",
+      "Product detail page with spice level slider and portion counter",
+      "Customization screen with toppings and side options",
+      "Consistent dark red and white brand palette throughout",
+    ],
+    techStack: [
+      { name: "Figma", icon: "🎨" },
+    ],
+    results:
+      "A polished 4-screen mobile UI that demonstrates product thinking and visual design — from brand identity through to a complete ordering and customization flow.",
+  },
+  {
     id: "budgetbuddy",
     slug: "budgetbuddy",
     title: "BudgetBuddy",
     tagline: "Personal finance management built for ALU students",
     description:
-      "A specialized web application designed to help ALU students manage personal finances — tracking expenses, analyzing spending habits, and staying within monthly budget constraints.",
+      "A personal finance app built for ALU students. Track expenses by category, set a monthly budget, and see a breakdown of where your money actually went.",
     heroImage: "/projects/budgetbuddy.png",
     categories: ["HTML", "CSS", "JavaScript"],
     liveUrl: "https://sanorod00.github.io/Sano_Rodrigue_Summative-Assignment---Building-Responsive-UI/",

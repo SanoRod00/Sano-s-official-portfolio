@@ -18,12 +18,12 @@ const cardVariants = {
 export const ProjectsPage = () => {
   return (
     <>
-      <SEO title="Projects" description="Explore my latest work and case studies." />
+      <SEO title="Projects" description="A look at what I've built: from hackathon winners to production apps." />
 
       <section className="section-shell section-spacing">
         <header className="mb-14 text-center reveal">
-          <p className="section-label">Portfolio Showcase</p>
-          <h1 className="section-title">Projects & Case Studies</h1>
+          <p className="section-label">My Work</p>
+          <h1 className="section-title">Projects</h1>
         </header>
 
         <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">

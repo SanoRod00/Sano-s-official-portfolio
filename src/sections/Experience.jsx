@@ -87,7 +87,7 @@ export const Experience = () => {
         viewport={{ once: true, amount: 0.5 }}
         variants={fadeUp}
       >
-        <p className="section-label">Explore My</p>
+        <p className="section-label">What I've Built With</p>
         <h2 className="section-title">Experience</h2>
       </motion.header>
 

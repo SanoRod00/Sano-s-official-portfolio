@@ -231,7 +231,7 @@ export const Hero = () => {
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="max-w-xl text-base leading-relaxed text-muted md:text-lg"
             >
-              From pixel-perfect UIs to scalable APIs — I ship complete, production-ready web products.
+              I build everything from the UI down to the API: complete products that are tested and ready to ship.
             </motion.p>
 
             <div className="flex flex-wrap items-center gap-3">

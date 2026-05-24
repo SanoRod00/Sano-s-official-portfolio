@@ -3,9 +3,9 @@ import { ArrowUp, Github, Linkedin, Mail } from "lucide-react";
 
 const footerLinks = [
   { label: "About", to: "/#about" },
+  { label: "Skills", to: "/#skills" },
   { label: "Experience", to: "/#experience" },
   { label: "Projects", to: "/#projects" },
-  { label: "Blog", to: "/#blog" },
   { label: "Contact", to: "/#contact" },
 ];
 

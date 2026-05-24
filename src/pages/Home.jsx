@@ -4,7 +4,6 @@ import { About } from "@/sections/About";
 import { Skills } from "@/sections/Skills";
 import { Experience } from "@/sections/Experience";
 import { Projects } from "@/sections/Projects";
-import { Blog } from "@/sections/Blog";
 import { Contact } from "@/sections/Contact";
 
 export const Home = () => {
@@ -16,7 +15,6 @@ export const Home = () => {
       <Skills />
       <Experience />
       <Projects />
-      <Blog />
       <Contact />
     </>
   );

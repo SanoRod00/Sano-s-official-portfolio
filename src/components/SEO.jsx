@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 
 export const SEO = ({ title, description, image, url }) => {
-    const siteTitle = 'Sano Rodrigue - Software Engineer';
-    const defaultDescription = 'Portfolio of Sano Rodrigue, a software engineer specializing in React, Next.js, and TypeScript.';
-    const siteUrl = 'https://sanorodrigue.dev'; // Replace with actual URL
+    const siteTitle = 'Sano Rodrigue — Fullstack Engineer';
+    const defaultDescription = 'Sano Rodrigue is a fullstack engineer from Kigali, Rwanda. He builds React frontends, Node.js APIs, and complete web products, from idea to deployment.';
+    const siteUrl = 'https://sanorodrigue.dev';
 
     return (
         <Helmet>

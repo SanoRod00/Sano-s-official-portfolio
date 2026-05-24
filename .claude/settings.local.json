@@ -13,7 +13,16 @@
       "Bash(Select-Object FullName)",
       "Bash(Sort-Object FullName)",
       "Bash(Select-Object FullName, Length)",
-      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\mpano\\\\Downloads\\\\Sano-s-official-portfolio\\\\public\" -Recurse | Where-Object { -not $_.PSIsContainer } | ForEach-Object { $_.FullName + \" \\(\" + $_.Length + \" bytes\\)\" })"
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\mpano\\\\Downloads\\\\Sano-s-official-portfolio\\\\public\" -Recurse | Where-Object { -not $_.PSIsContainer } | ForEach-Object { $_.FullName + \" \\(\" + $_.Length + \" bytes\\)\" })",
+      "Bash(gh repo *)",
+      "Bash(node --input-type=module)",
+      "WebFetch(domain:www.figma.com)",
+      "Bash(cp 'c:/Users/mpano/OneDrive - London Metropolitan University/Documents/LONDON MET ONEDRIVE/Pictures/Screenshots/Screenshot 2026-05-23 100131.png' C:/Users/mpano/Downloads/Sano-s-official-portfolio/public/projects/bestburger.png)",
+      "Bash(cp 'c:/Users/mpano/OneDrive - London Metropolitan University/Documents/LONDON MET ONEDRIVE/Pictures/Screenshots/Screenshot 2026-05-23 100328.png' C:/Users/mpano/Downloads/Sano-s-official-portfolio/public/projects/bestburger-1.png)",
+      "Bash(cp 'c:/Users/mpano/OneDrive - London Metropolitan University/Documents/LONDON MET ONEDRIVE/Pictures/Screenshots/Screenshot 2026-05-23 100409.png' C:/Users/mpano/Downloads/Sano-s-official-portfolio/public/projects/bestburger-2.png)",
+      "Bash(cp 'c:/Users/mpano/OneDrive - London Metropolitan University/Documents/LONDON MET ONEDRIVE/Pictures/Screenshots/Screenshot 2026-05-23 100826.png' C:/Users/mpano/Downloads/Sano-s-official-portfolio/public/projects/bestburger-3.png)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

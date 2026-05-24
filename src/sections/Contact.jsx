@@ -38,7 +38,7 @@ export const Contact = () => {
           <p className="section-label">Get In Touch</p>
           <h2 className="section-title">Contact Me</h2>
           <p className="mt-4 text-base text-muted md:text-lg">
-            Let&apos;s build something great. I reply fast.
+            Have a project in mind or just want to talk? I reply within 24 hours.
           </p>
         </motion.header>
 
@@ -87,7 +87,7 @@ export const Contact = () => {
               <MessageCircle className="h-5 w-5" />
             </div>
             <h3 className="text-xl font-bold">Clear Communication</h3>
-            <p className="mt-2 text-sm text-muted md:text-base">Transparent updates & quality-focused delivery.</p>
+            <p className="mt-2 text-sm text-muted md:text-base">I keep you updated throughout and deliver exactly what we agreed on.</p>
           </motion.article>
         </motion.div>
       </div>

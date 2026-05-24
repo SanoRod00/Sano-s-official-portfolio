@@ -53,16 +53,18 @@ export const ProjectDetail = () => {
                 Devpost
                 <ExternalLink className="ml-2 h-4 w-4" />
               </a>
-            ) : (
+            ) : project.liveUrl ? (
               <a href={project.liveUrl} target="_blank" rel="noreferrer" className="solid-btn">
-                Live Demo
+                {project.liveLabel ?? "Live Demo"}
                 <ExternalLink className="ml-2 h-4 w-4" />
               </a>
+            ) : null}
+            {project.repoUrl && (
+              <a href={project.repoUrl} target="_blank" rel="noreferrer" className="ghost-btn">
+                Source Code
+                <Github className="ml-2 h-4 w-4" />
+              </a>
             )}
-            <a href={project.repoUrl} target="_blank" rel="noreferrer" className="ghost-btn">
-              Source Code
-              <Github className="ml-2 h-4 w-4" />
-            </a>
             {project.hackathonUrl && (
               <a href={project.hackathonUrl} target="_blank" rel="noreferrer" className="ghost-btn">
                 Hackathon
@@ -83,6 +85,25 @@ export const ProjectDetail = () => {
             />
           </div>
         </div>
+
+        {project.screenshots && project.screenshots.length > 0 && (
+          <div className="reveal mb-12">
+            <h2 className="mb-6 text-2xl font-bold md:text-3xl">Screens</h2>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+              {project.screenshots.map((src, i) => (
+                <div key={i} className="soft-card overflow-hidden">
+                  <img
+                    src={src}
+                    alt={`${project.title} screen ${i + 1}`}
+                    className="w-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="grid gap-8 lg:grid-cols-[1fr_0.95fr]">
           <section className="reveal soft-card p-6 md:p-8" style={{ animationDelay: "100ms" }}>
