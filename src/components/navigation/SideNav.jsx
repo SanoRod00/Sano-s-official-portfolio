@@ -1,4 +1,4 @@
-import { Home, FolderGit2, Briefcase, MessageSquareQuote } from "lucide-react";
+import { Home, FolderGit2, Briefcase } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -6,7 +6,6 @@ const navLinks = [
     { href: "/", label: "Home", icon: Home },
     { href: "/projects", label: "Projects", icon: FolderGit2 },
     { href: "/#experience", label: "Experience", icon: Briefcase },
-    { href: "/#testimonials", label: "Testimonials", icon: MessageSquareQuote },
 ];
 
 export const SideNav = ({ isOpen, onClose }) => {
