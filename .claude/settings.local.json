@@ -22,7 +22,16 @@
       "Bash(cp 'c:/Users/mpano/OneDrive - London Metropolitan University/Documents/LONDON MET ONEDRIVE/Pictures/Screenshots/Screenshot 2026-05-23 100409.png' C:/Users/mpano/Downloads/Sano-s-official-portfolio/public/projects/bestburger-2.png)",
       "Bash(cp 'c:/Users/mpano/OneDrive - London Metropolitan University/Documents/LONDON MET ONEDRIVE/Pictures/Screenshots/Screenshot 2026-05-23 100826.png' C:/Users/mpano/Downloads/Sano-s-official-portfolio/public/projects/bestburger-3.png)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(npx playwright *)",
+      "Bash(node -e ' *)",
+      "Bash(npm install *)",
+      "Bash(node *)",
+      "Bash(npm root *)",
+      "Bash(NODE_PATH=\"C:\\\\Users\\\\mpano\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\" node *)",
+      "Bash(Copy-Item *)",
+      "Skill(run)"
     ]
   }
 }
