@@ -73,28 +73,33 @@ export const TopNav = () => {
   const toSection = (id) => `/#${id}`;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 py-3 md:px-6">
+    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-3 md:px-6 md:pt-4">
       <div
-        className={`mx-auto flex w-full max-w-6xl items-center justify-between rounded-full border border-border/60 bg-surface/75 px-5 shadow-[0_4px_24px_rgba(10,20,40,0.09),0_1px_3px_rgba(10,20,40,0.05)] backdrop-blur-[12px] transition-all duration-300 md:px-7 ${
-          isScrolled ? "py-2.5" : "py-3"
+        className={`mx-auto flex w-full max-w-5xl items-center justify-between rounded-full border px-3 py-2 transition-all duration-300 md:px-4 ${
+          isScrolled
+            ? "border-border/70 bg-surface/90 shadow-[0_12px_30px_-20px_rgba(26,23,20,0.55)] backdrop-blur-md"
+            : "border-border/40 bg-surface/70 backdrop-blur-sm"
         }`}
       >
-        <Link to="/" className="inline-flex items-center gap-2 text-xl font-extrabold tracking-tight md:text-2xl">
-          <span className="inline-block h-2.5 w-2.5 rounded-full bg-accent pulse-soft" />
+        <Link
+          to="/"
+          className="inline-flex items-center rounded-full px-3 py-1 text-base font-extrabold tracking-tight md:text-lg"
+        >
           Sano Rodrigue
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center gap-2 md:flex">
           {navItems.map((item) => {
             const isActive = location.pathname === "/" && activeSection === item.id;
             return (
               <Link
                 key={item.id}
                 to={toSection(item.id)}
-                className={`rounded-full px-4 py-2 text-sm font-medium tracking-[0.01em] transition-all duration-200 ${
+                aria-current={isActive ? "page" : undefined}
+                className={`rounded-full px-3 py-1.5 text-sm tracking-[0.01em] transition-colors duration-200 ${
                   isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted hover:text-foreground"
+                    ? "font-bold text-foreground"
+                    : "font-medium text-muted hover:text-foreground"
                 }`}
               >
                 {item.label}
@@ -113,7 +118,7 @@ export const TopNav = () => {
             {theme === "dark" ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />}
           </button>
 
-          <Link to={toSection("contact")} className="accent-btn hidden md:inline-flex">
+          <Link to={toSection("contact")} className="hidden md:inline-flex items-center rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background transition-colors duration-200 hover:bg-foreground/85">
             Hire Me
           </Link>
 
@@ -130,13 +135,13 @@ export const TopNav = () => {
       </div>
 
       {isOpen ? (
-        <nav className="mx-auto mt-3 flex w-full max-w-6xl flex-col gap-2 rounded-3xl border border-border bg-surface/95 p-4 shadow-[0_20px_30px_rgba(5,10,30,0.12)] backdrop-blur md:hidden">
+        <nav className="mx-auto mt-2 flex w-full max-w-5xl flex-col gap-1 rounded-3xl border border-border/60 bg-surface/95 p-3 shadow-[0_18px_40px_-28px_rgba(26,23,20,0.6)] backdrop-blur md:hidden">
           {navItems.map((item) => (
             <Link
               key={item.id}
               to={toSection(item.id)}
               onClick={() => setIsOpen(false)}
-              className="rounded-2xl px-4 py-3 text-base font-semibold text-foreground transition-colors duration-200 hover:bg-primary hover:text-primary-foreground"
+              className="rounded-lg px-2 py-3 text-base font-medium text-foreground transition-colors duration-200 hover:text-primary"
             >
               {item.label}
             </Link>
@@ -144,7 +149,7 @@ export const TopNav = () => {
           <Link
             to={toSection("contact")}
             onClick={() => setIsOpen(false)}
-            className="accent-btn mt-1 w-full"
+            className="mt-1 w-full justify-center inline-flex items-center rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background transition-colors duration-200 hover:bg-foreground/85"
           >
             Hire Me
           </Link>

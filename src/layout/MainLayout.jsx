@@ -13,7 +13,7 @@ export const MainLayout = ({ children }) => {
       </div>
 
       <TopNav />
-      <main className="pt-28 md:pt-32">{children}</main>
+      <main className="pt-[5.5rem]">{children}</main>
     </div>
   );
 };

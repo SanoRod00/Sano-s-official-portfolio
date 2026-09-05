@@ -1,336 +1,407 @@
-import { motion } from "framer-motion";
-import { ArrowDown, ArrowRight, Download, Github, Linkedin } from "lucide-react";
-import { useState, useEffect } from "react";
-import { FloatingUniverse } from "@/components/FloatingUniverse";
+import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight, Github, Linkedin } from "lucide-react";
 
-const socialLinks = [
+const GITHUB_USER = "SanoRod00";
+const CACHE_KEY = "hero:gh:v2";
+const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours
+
+// Last known-good values, read from the GitHub API on 2026-08-30. These ship as
+// the permanent fallback: if the request fails, is rate limited, or the visitor
+// is offline, the strip renders these instead, with no error text and no
+// difference in layout. `year` travels with the count so the label can never
+// claim a year the number does not describe.
+const FALLBACK = {
+  repos: 67,
+  pushedThisYear: 17,
+  year: 2026,
+  stars: 21,
+  lastPush: "2026-09-04T18:12:43Z",
+};
+
+// Orbit geometry. Angles are degrees counter-clockwise from the positive x
+// axis; the tier multiplies --orbit-r for depth. Left and right mirror each
+// other, so no pill is placed by eye.
+const ORBIT = [
+  { name: "React", angle: 160, tier: 1, tone: "dark" },
+  { name: "Node.js", angle: 185, tier: 0.94, tone: "light" },
+  { name: "PostgreSQL", angle: 210, tier: 1.06, tone: "light" },
+  { name: "Odoo ERP", angle: 20, tier: 1, tone: "light" },
+  { name: "REST APIs", angle: -5, tier: 0.94, tone: "dark" },
+  { name: "AWS", angle: -30, tier: 1.06, tone: "light" },
+];
+
+const MARQUEE = [
+  "Fullstack Development",
+  "Odoo ERP",
+  "API Design",
+  "Data Migration",
+  "React Interfaces",
+];
+
+const SOCIALS = [
+  { href: `https://github.com/${GITHUB_USER}`, label: "GitHub", Icon: Github },
   {
     href: "https://www.linkedin.com/in/rodrigue-sano-ab3849331",
     label: "LinkedIn",
-    icon: Linkedin,
-  },
-  {
-    href: "https://github.com/SanoRod00",
-    label: "GitHub",
-    icon: Github,
+    Icon: Linkedin,
   },
 ];
 
-const capabilities = [
-  {
-    title: "UI Engineering",
-    text: "Design systems & responsive interfaces.",
-  },
-  {
-    title: "Backend APIs",
-    text: "REST services, auth & data models.",
-  },
-  {
-    title: "Cloud Delivery",
-    text: "CI/CD, performance & monitoring.",
-  },
-];
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.09 } },
+const orbitStyle = ({ angle, tier }, index) => {
+  const rad = (angle * Math.PI) / 180;
+  return {
+    "--ox": `calc(var(--orbit-r) * ${(Math.cos(rad) * tier).toFixed(4)})`,
+    "--oy": `calc(var(--orbit-r) * ${(-Math.sin(rad) * tier).toFixed(4)})`,
+    "--float-duration": `${6.5 + index * 0.35}s`,
+    "--float-delay": `-${index * 1.1}s`,
+  };
 };
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 22 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
-};
-
-const AVATAR_SIZE = "clamp(240px, 28vw, 380px)";
-
-const HeroAvatar = () => (
-  <motion.div
-    className="flex justify-center items-center"
-    initial={{ opacity: 0, x: 40 }}
-    animate={{ opacity: 1, x: 0 }}
-    transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+const ToolboxIcon = (props) => (
+  <svg
+    viewBox="0 0 24 24"
+    width="20"
+    height="20"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.75"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
   >
-    <motion.div
-      animate={{ y: [0, -14, 0] }}
-      transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-      style={{ position: "relative", width: AVATAR_SIZE, height: AVATAR_SIZE }}
-    >
-      {/* Glow aura */}
-      <div
-        style={{
-          position: "absolute",
-          inset: "-24px",
-          borderRadius: "9999px",
-          boxShadow:
-            "0 0 60px 20px color-mix(in srgb, var(--color-primary) 28%, transparent), 0 0 100px 40px color-mix(in srgb, var(--color-accent) 14%, transparent)",
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* Spinning conic-gradient ring — first child, sits behind image */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          borderRadius: "9999px",
-          background:
-            "conic-gradient(from 0deg, var(--color-primary), var(--color-accent), var(--color-primary))",
-          animation: "spin-ring 4s linear infinite",
-        }}
-      />
-
-      {/* Image container — second child, naturally above ring */}
-      <div
-        style={{
-          position: "absolute",
-          inset: "4px",
-          borderRadius: "9999px",
-          overflow: "hidden",
-          background: "var(--color-background)",
-        }}
-      >
-        <img
-          src="/hero-avatar.png"
-          alt="Sano Rodrigue"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
-        />
-      </div>
-
-      {/* Status badge */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "-1.75rem",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 10,
-          whiteSpace: "nowrap",
-        }}
-      >
-        <span className="status-badge shadow-md">
-          <span className="status-dot" />
-          Open to opportunities
-        </span>
-      </div>
-    </motion.div>
-  </motion.div>
+    <path d="M9 7V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" />
+    <rect x="3" y="7" width="18" height="12" rx="2" />
+    <path d="M3 12h18" />
+    <path d="M10.5 12v1.5h3V12" />
+  </svg>
 );
 
-export const Hero = () => {
-  const [step, setStep] = useState(0);
-  const [nameText, setNameText] = useState("");
-  const [titleText, setTitleText] = useState("");
-  const [showNameCursor, setShowNameCursor] = useState(false);
-  const [showTitleCursor, setShowTitleCursor] = useState(false);
+const readCache = () => {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null; // private mode or blocked storage
+  }
+};
+
+const writeCache = (entry) => {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify(entry));
+  } catch {
+    /* storage can be blocked; the numbers still render */
+  }
+};
+
+const useGithubStats = () => {
+  // Seed from cache at any age. A stale real number beats the fallback, and
+  // rendering it immediately means the live response never shifts the layout.
+  const [stats, setStats] = useState(() => readCache()?.data ?? null);
 
   useEffect(() => {
-    let isMounted = true;
+    let cancelled = false;
 
-    const runAnimations = async () => {
-      await new Promise((r) => setTimeout(r, 200));
-      if (!isMounted) return;
-      setStep(1);
+    const load = async () => {
+      const cached = readCache();
 
-      await new Promise((r) => setTimeout(r, 600));
-      if (!isMounted) return;
-      setStep(2);
-      setShowNameCursor(true);
+      // Fresh cache: a returning visitor inside the TTL does not re-fetch.
+      if (cached?.at && Date.now() - cached.at < CACHE_TTL) return;
 
-      const fullName = "Sano Rodrigue";
-      let currentName = "";
-      for (let i = 0; i < fullName.length; i++) {
-        currentName += fullName[i];
-        if (!isMounted) return;
-        setNameText(currentName);
-        await new Promise((r) => setTimeout(r, 80));
+      // Rate limited earlier: stay quiet until GitHub's reset time passes.
+      if (cached?.rateLimitedUntil && Date.now() < cached.rateLimitedUntil) return;
+
+      try {
+        const [userRes, repoRes] = await Promise.all([
+          fetch(`https://api.github.com/users/${GITHUB_USER}`),
+          fetch(
+            `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=pushed&direction=desc`
+          ),
+        ]);
+
+        // 403/429 with no remaining quota is the documented unauthenticated
+        // rate limit (60/hr per IP). Back off until the reset instead of
+        // retrying on every mount, and keep whatever data we already have.
+        const limited = [userRes, repoRes].find(
+          (res) =>
+            (res.status === 403 || res.status === 429) &&
+            res.headers.get("x-ratelimit-remaining") === "0"
+        );
+        if (limited) {
+          const reset = Number(limited.headers.get("x-ratelimit-reset"));
+          writeCache({
+            ...(cached ?? {}),
+            rateLimitedUntil: Number.isFinite(reset)
+              ? reset * 1000
+              : Date.now() + 60 * 60 * 1000,
+          });
+          return;
+        }
+
+        if (!userRes.ok || !repoRes.ok) throw new Error("github request failed");
+
+        const user = await userRes.json();
+        const repos = await repoRes.json();
+        if (!Array.isArray(repos)) throw new Error("unexpected repo payload");
+
+        const year = new Date().getUTCFullYear();
+        const data = {
+          repos: user.public_repos,
+          pushedThisYear: repos.filter(
+            (repo) => new Date(repo.pushed_at).getUTCFullYear() === year
+          ).length,
+          year,
+          stars: repos.reduce((sum, repo) => sum + repo.stargazers_count, 0),
+          lastPush: repos[0] ? repos[0].pushed_at : null,
+        };
+
+        if (cancelled) return;
+        setStats(data);
+        writeCache({ at: Date.now(), data });
+      } catch {
+        // Offline, DNS failure, CORS, malformed payload: say nothing and let
+        // the fallback stand.
       }
-
-      await new Promise((r) => setTimeout(r, 1200));
-      if (!isMounted) return;
-      setShowNameCursor(false);
-
-      setStep(3);
-      setShowTitleCursor(true);
-      const fullTitle = "Fullstack Engineer crafting end-to-end products.";
-      let currentTitle = "";
-      for (let i = 0; i < fullTitle.length; i++) {
-        currentTitle += fullTitle[i];
-        if (!isMounted) return;
-        setTitleText(currentTitle);
-        await new Promise((r) => setTimeout(r, 45));
-      }
-      if (!isMounted) return;
-      setShowTitleCursor(false);
-
-      setStep(4);
-      await new Promise((r) => setTimeout(r, 700));
-      if (!isMounted) return;
-
-      setStep(5);
-      await new Promise((r) => setTimeout(r, 120 * 3 + 300));
-      if (!isMounted) return;
-
-      setStep(6);
     };
 
-    runAnimations();
-
+    load();
     return () => {
-      isMounted = false;
+      cancelled = true;
     };
   }, []);
 
+  return stats ?? FALLBACK;
+};
+
+const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+
+const Counter = ({ value }) => {
+  const ref = useRef(null);
+  const [reduced] = useState(prefersReducedMotion);
+  const [progress, setProgress] = useState(null);
+  const [finished, setFinished] = useState(false);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (reduced || started.current || !node) return undefined;
+
+    let frame = 0;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting || started.current) return;
+        started.current = true;
+        observer.disconnect();
+
+        const begin = performance.now();
+        const tick = (now) => {
+          const t = Math.min((now - begin) / 900, 1);
+          setProgress(t);
+          if (t < 1) frame = requestAnimationFrame(tick);
+          else setFinished(true);
+        };
+        frame = requestAnimationFrame(tick);
+      },
+      { threshold: 0.4 }
+    );
+
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, [reduced]);
+
+  // Derived at render, so a value arriving from the network after the count
+  // has finished simply replaces it rather than replaying the animation.
+  const shown =
+    reduced || finished
+      ? value
+      : progress === null
+        ? 0
+        : Math.round(easeOut(progress) * value);
+
   return (
-    <section className="w-full section-spacing pt-16 md:pt-24 relative overflow-hidden">
-      {/* Gradient orb background */}
-      <div className="hero-orb hero-orb--primary" />
-      <div className="hero-orb hero-orb--accent" />
+    <span ref={ref} aria-live="off">
+      <span aria-hidden="true">{shown}</span>
+      <span className="hero__srOnly">{value}</span>
+    </span>
+  );
+};
 
-      {/* Floating particle universe — z-[2], between bg (z-0) and content (z-10) */}
-      <FloatingUniverse />
+const relativeDay = (iso) => {
+  if (!iso) return null;
+  const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+  if (days <= 0) return "today";
+  if (days === 1) return "yesterday";
+  if (days < 30) return `${days} days ago`;
+  const months = Math.round(days / 30);
+  return months === 1 ? "1 month ago" : `${months} months ago`;
+};
 
-      <div className="mx-auto w-full max-w-6xl px-5 md:px-8 relative z-10">
-        {/* Two-column grid: text left, avatar right */}
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+const MarqueeRun = () => (
+  <div className="hero__trackRun">
+    {MARQUEE.map((item) => (
+      <span key={item}>
+        {item}
+        <span className="hero__star"> ✳</span>
+      </span>
+    ))}
+  </div>
+);
 
-          {/* ── Left column: text content ── */}
-          <div className="space-y-7">
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={step >= 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-            >
-              <span className="status-badge">
-                <span className="status-dot" />
-                Open to opportunities
-              </span>
-            </motion.div>
+export const Hero = () => {
+  const stats = useGithubStats();
+  const lastPush = relativeDay(stats.lastPush);
 
-            <div className="space-y-5">
-              <motion.p
-                initial={{ opacity: 0, y: -10 }}
-                animate={step >= 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="text-base font-semibold uppercase tracking-[0.2em] text-muted md:text-lg"
-              >
-                Hello, I&apos;m
-              </motion.p>
-              <h1 className="hero-gradient-title text-5xl font-extrabold leading-[1.05] tracking-tight md:text-7xl min-h-[1.1em]">
-                {nameText}
-                {showNameCursor && <span className="animate-pulse">▌</span>}
-              </h1>
-              <p className="text-2xl font-semibold text-muted md:text-4xl min-h-[1.5em]">
-                {titleText}
-                {showTitleCursor && <span className="animate-pulse">▌</span>}
-              </p>
+  const figures = [
+    { value: stats.repos, label: "public repos" },
+    { value: stats.pushedThisYear, label: `repos pushed in ${stats.year}` },
+    { value: stats.stars, label: "stars earned" },
+  ];
+
+  return (
+    <section className="hero" aria-labelledby="hero-name">
+      <div className="hero__grid">
+        <div className="hero__col">
+          <p className="hero__eyebrow" data-reveal style={{ animationDelay: "60ms" }}>
+            <span className="hero__dash" aria-hidden="true" />
+            Hello there!
+          </p>
+
+          <h1
+            id="hero-name"
+            className="hero__title"
+            data-reveal
+            style={{ animationDelay: "140ms" }}
+          >
+            I&apos;m <em>Sano Rodrigue</em>
+          </h1>
+
+          <p className="hero__subline" data-reveal style={{ animationDelay: "220ms" }}>
+            Fullstack engineer based in Kigali, Rwanda
+          </p>
+
+          <div className="hero__stage" data-reveal style={{ animationDelay: "300ms" }}>
+            <span className="hero__arc hero__arc--2" aria-hidden="true" />
+            <span className="hero__arc hero__arc--1" aria-hidden="true" />
+            <span className="hero__circle" aria-hidden="true" />
+
+            <div className="hero__photo">
+              <img
+                src="/hero-profile.jpg"
+                alt="Sano Rodrigue"
+                width="920"
+                height="1150"
+                fetchPriority="high"
+                decoding="async"
+              />
             </div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={step >= 4 ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className="max-w-xl text-base leading-relaxed text-muted md:text-lg"
-            >
-              I build everything from the UI down to the API: complete products that are tested and ready to ship.
-            </motion.p>
-
-            <div className="flex flex-wrap items-center gap-3">
-              <motion.a
-                href="#projects"
-                className="solid-btn"
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={step >= 5 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
-                transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0 }}
-              >
-                View Projects
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </motion.a>
-              <motion.a
-                href="#contact"
-                className="ghost-btn"
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={step >= 5 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
-                transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.12 }}
-              >
-                Contact Me
-              </motion.a>
-              <motion.a
-                href="/resume.pdf"
-                download
-                className="ghost-btn"
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={step >= 5 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
-                transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.24 }}
-              >
-                <Download className="mr-2 h-4 w-4" />
-                Resume
-              </motion.a>
-            </div>
-
-            <div className="flex items-center gap-3 h-11">
-              {socialLinks.map((item, index) => (
-                <motion.a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={item.label}
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:text-primary"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={step >= 6 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 12,
-                    delay: index * 0.08,
-                  }}
+            <ul className="hero__orbit">
+              {ORBIT.map((item, index) => (
+                <li
+                  key={item.name}
+                  className="hero__orbitItem"
+                  style={orbitStyle(item, index)}
                 >
-                  <item.icon className="h-5 w-5" />
-                </motion.a>
+                  <span className={`hero__pill hero__pill--${item.tone}`}>
+                    {item.name}
+                  </span>
+                </li>
               ))}
+            </ul>
+
+            <div className="hero__badge" role="img" aria-label="Open to work">
+              <svg
+                className="hero__badgeRing"
+                viewBox="0 0 120 120"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <defs>
+                  <path
+                    id="hero-badge-path"
+                    d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"
+                    fill="none"
+                  />
+                </defs>
+                <text>
+                  <textPath href="#hero-badge-path">
+                    OPEN TO WORK · OPEN TO WORK · OPEN TO WORK ·
+                  </textPath>
+                </text>
+              </svg>
+              <span className="hero__badgeCore" aria-hidden="true">
+                <ToolboxIcon />
+              </span>
             </div>
           </div>
 
-          {/* ── Right column: avatar ── */}
-          <div className="hidden lg:flex justify-center items-center pb-8">
-            <HeroAvatar />
+          <ul className="hero__pillRow">
+            {ORBIT.map((item) => (
+              <li key={item.name}>
+                <span className={`hero__pill hero__pill--${item.tone}`}>{item.name}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="hero__actions" data-reveal style={{ animationDelay: "380ms" }}>
+            <a href="/projects" className="hero__btn hero__btn--primary">
+              View projects
+              <span className="hero__btnArrow" aria-hidden="true">
+                <ArrowUpRight className="h-4 w-4" />
+              </span>
+            </a>
+            <a href="/#contact" className="hero__btn hero__btn--ghost">
+              Hire me
+            </a>
           </div>
         </div>
 
-        {/* Capabilities grid */}
-        <motion.div
-          className="mt-14 grid gap-4 md:grid-cols-3 relative z-10"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          {capabilities.map((item) => (
-            <motion.article
-              key={item.title}
-              className="soft-card hover-lift p-5"
-              variants={fadeUp}
-            >
-              <h3 className="text-xl font-bold">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{item.text}</p>
-            </motion.article>
-          ))}
-        </motion.div>
+        <div className="hero__footer" data-reveal style={{ animationDelay: "460ms" }}>
+          <dl className="hero__stats">
+            {figures.map((figure) => (
+              <div key={figure.label} className="hero__stat">
+                <dt className="hero__statLabel">{figure.label}</dt>
+                <dd className="hero__statValue">
+                  <Counter value={figure.value} />
+                </dd>
+              </div>
+            ))}
+          </dl>
 
-        <motion.div
-          className="mt-9 flex justify-center relative z-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-        >
-          <a
-            href="#about"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-sm font-semibold text-muted transition-colors hover:text-foreground"
-          >
-            Scroll to explore
-            <ArrowDown className="h-4 w-4" />
-          </a>
-        </motion.div>
+          <ul className="hero__socials">
+            {SOCIALS.map((social) => (
+              <li key={social.label}>
+                <a
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={social.label}
+                  className="hero__social"
+                >
+                  <social.Icon className="h-[18px] w-[18px]" aria-hidden="true" />
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <p className="hero__statNote">github · last push {lastPush}</p>
+        </div>
+      </div>
+
+      {/* The visible track is duplicated for a seamless loop, so it is hidden
+          from assistive tech and the sr-only line carries the real content. */}
+      <div className="hero__marquee">
+        <p className="hero__srOnly">What I work on: {MARQUEE.join(", ")}.</p>
+        <div className="hero__track" aria-hidden="true">
+          <MarqueeRun />
+          <MarqueeRun />
+        </div>
       </div>
     </section>
   );
