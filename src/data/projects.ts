@@ -1,5 +1,45 @@
 export const projects = [
   {
+    id: "sharijavuba",
+    slug: "sharijavuba",
+    title: "SharijaVuba",
+    hackathonLabel: "First place, Ejo Labs STP'26 Hackathon",
+    statusBadge: "In Development",
+    role: "Project lead & backend (team of 5)",
+    tagline:
+      "A shared queue for electric moto battery swap stations in Kigali. Riders hold their place from the road and keep earning instead of standing at the station.",
+    description:
+      "A queue service for Kigali's shared electric moto battery swap stations. Riders join the line from the road and keep carrying passengers until they are called, through a Kinyarwanda-first interface backed by a queue state machine that never stalls on an absent rider.",
+    heroImage: "/projects/sharijavuba.png",
+    categories: ["Node.js", "Express", "PostgreSQL"],
+    liveUrl: "https://sharijavuba-backend.onrender.com",
+    repoUrl: "https://github.com/SanoRod00/sharijavuba",
+    problem:
+      "Kigali's electric moto taxis swap batteries at shared stations, and at peak hours riders wait in a long physical line. A rider standing in that line cannot carry passengers, so every minute spent holding his place is income lost — and the queue exists only as bodies on the ground, with no way to hold a position from anywhere else.",
+    solution:
+      "SharijaVuba turns the physical line into a queue a rider can join from the road, so he keeps working until he is called up. It is built Kinyarwanda-first, because the rider does not read English. Behind it sits a queue state machine with an expiry ladder, so an absent rider is stepped down and eventually released rather than blocking everyone behind him, and the whole thing stays correct under multiple attendants working the same station at once.",
+    features: [
+      "Join a station's queue from the road instead of waiting in the physical line",
+      "Kinyarwanda-first interface, built for riders who do not read English",
+      "Queue state machine tracking each rider from join through to swap",
+      "Expiry ladder that steps down and releases an absent rider so the line never stalls",
+      "Row-level locking so concurrent attendants can never hand the same slot to two riders",
+      "Concurrency test covering simultaneous attendant actions against the same queue",
+      "Kinyarwanda-first interface, with n8n handling notification delivery (called, slipped, no-show) so the queue never blocks on message sending",
+    ],
+    techStack: [
+      { name: "Node.js", icon: "🟢" },
+      { name: "Express", icon: "🚂" },
+      { name: "PostgreSQL", icon: "🐘" },
+      { name: "n8n", icon: "⚙️" },
+      { name: "EjoChat API", icon: "💬" },
+      { name: "Render", icon: "☁️" },
+      { name: "Neon", icon: "⚡" },
+    ],
+    results:
+      "First place, Ejo Labs STP'26 hackathon, August 2026. The queue service is deployed on Render against a Neon-hosted Postgres database, and the concurrency path — two attendants advancing the same queue at the same moment — is covered by a concurrent test exercising the row-level locks. Rider-facing rollout is the next step; no usage or time-saved figures have been measured yet.",
+  },
+  {
     id: "polyvoice",
     slug: "polyvoice",
     title: "PolyVoice",
