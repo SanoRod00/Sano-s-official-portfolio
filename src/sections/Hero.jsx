@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Github, Linkedin } from "lucide-react";
 
 const GITHUB_USER = "SanoRod00";
@@ -18,19 +18,28 @@ const FALLBACK = {
   lastPush: "2026-09-04T18:12:43Z",
 };
 
-// Orbit geometry. Angles are degrees counter-clockwise from the positive x
-// axis; the tier multiplies --orbit-r for depth. Left and right mirror each
-// other, so no pill is placed by eye.
-const ORBIT = [
-  { name: "React", angle: 160, tier: 1, tone: "dark" },
-  { name: "Node.js", angle: 185, tier: 0.94, tone: "light" },
-  { name: "PostgreSQL", angle: 210, tier: 1.06, tone: "light" },
-  { name: "Odoo ERP", angle: 20, tier: 1, tone: "light" },
-  { name: "REST APIs", angle: -5, tier: 0.94, tone: "dark" },
-  { name: "AWS", angle: -30, tier: 1.06, tone: "light" },
+// The headline reveals per character. Splitting by word (not by character
+// alone) keeps line breaks on word boundaries when the h1 wraps below 900px.
+const NAME_WORDS = [
+  { text: "I'm", accent: false },
+  { text: "Sano", accent: true },
+  { text: "Rodrigue", accent: true },
 ];
 
-const MARQUEE = [
+const NAME_TEXT = NAME_WORDS.map((word) => word.text).join(" ");
+
+// 15 characters x 25ms = 350ms for the last one to start, +280ms to run.
+const CHAR_STAGGER = 25;
+const NAME_CHARS = (() => {
+  let index = 0;
+  return NAME_WORDS.map((word) => ({
+    accent: word.accent,
+    text: word.text,
+    chars: [...word.text].map((char) => ({ char, delay: index++ * CHAR_STAGGER })),
+  }));
+})();
+
+const CAPABILITIES = [
   "Fullstack Development",
   "Odoo ERP",
   "API Design",
@@ -50,16 +59,6 @@ const SOCIALS = [
 const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-const orbitStyle = ({ angle, tier }, index) => {
-  const rad = (angle * Math.PI) / 180;
-  return {
-    "--ox": `calc(var(--orbit-r) * ${(Math.cos(rad) * tier).toFixed(4)})`,
-    "--oy": `calc(var(--orbit-r) * ${(-Math.sin(rad) * tier).toFixed(4)})`,
-    "--float-duration": `${6.5 + index * 0.35}s`,
-    "--float-delay": `-${index * 1.1}s`,
-  };
-};
 
 const ToolboxIcon = (props) => (
   <svg
@@ -242,17 +241,6 @@ const relativeDay = (iso) => {
   return months === 1 ? "1 month ago" : `${months} months ago`;
 };
 
-const MarqueeRun = () => (
-  <div className="hero__trackRun">
-    {MARQUEE.map((item) => (
-      <span key={item}>
-        {item}
-        <span className="hero__star"> ✳</span>
-      </span>
-    ))}
-  </div>
-);
-
 export const Hero = () => {
   const stats = useGithubStats();
   const lastPush = relativeDay(stats.lastPush);
@@ -267,27 +255,37 @@ export const Hero = () => {
     <section className="hero" aria-labelledby="hero-name">
       <div className="hero__grid">
         <div className="hero__col">
-          <p className="hero__eyebrow" data-reveal style={{ animationDelay: "60ms" }}>
-            <span className="hero__dash" aria-hidden="true" />
-            Hello there!
-          </p>
-
-          <h1
-            id="hero-name"
-            className="hero__title"
-            data-reveal
-            style={{ animationDelay: "140ms" }}
-          >
-            I&apos;m <em>Sano Rodrigue</em>
+          <h1 id="hero-name" className="hero__title">
+            {/* The complete string stays in the DOM for assistive tech and
+                crawlers; the per-character spans are decorative duplicates. */}
+            <span className="hero__srOnly">{NAME_TEXT}</span>
+            <span aria-hidden="true">
+              {NAME_CHARS.map((word, wordIndex) => (
+                <Fragment key={word.text}>
+                  {wordIndex > 0 ? " " : null}
+                  <span className="hero__word">
+                    {word.chars.map((item, charIndex) => (
+                      <span
+                        key={`${word.text}-${charIndex}`}
+                        className={
+                          word.accent ? "hero__char hero__char--accent" : "hero__char"
+                        }
+                        style={{ animationDelay: `${item.delay}ms` }}
+                      >
+                        {item.char}
+                      </span>
+                    ))}
+                  </span>
+                </Fragment>
+              ))}
+            </span>
           </h1>
 
-          <p className="hero__subline" data-reveal style={{ animationDelay: "220ms" }}>
+          <p className="hero__subline" data-reveal style={{ animationDelay: "420ms" }}>
             Fullstack engineer based in Kigali, Rwanda
           </p>
 
-          <div className="hero__stage" data-reveal style={{ animationDelay: "300ms" }}>
-            <span className="hero__arc hero__arc--2" aria-hidden="true" />
-            <span className="hero__arc hero__arc--1" aria-hidden="true" />
+          <div className="hero__stage" data-reveal style={{ animationDelay: "480ms" }}>
             <span className="hero__circle" aria-hidden="true" />
 
             <div className="hero__photo">
@@ -300,20 +298,6 @@ export const Hero = () => {
                 decoding="async"
               />
             </div>
-
-            <ul className="hero__orbit">
-              {ORBIT.map((item, index) => (
-                <li
-                  key={item.name}
-                  className="hero__orbitItem"
-                  style={orbitStyle(item, index)}
-                >
-                  <span className={`hero__pill hero__pill--${item.tone}`}>
-                    {item.name}
-                  </span>
-                </li>
-              ))}
-            </ul>
 
             <div className="hero__badge" role="img" aria-label="Open to work">
               <svg
@@ -341,15 +325,7 @@ export const Hero = () => {
             </div>
           </div>
 
-          <ul className="hero__pillRow">
-            {ORBIT.map((item) => (
-              <li key={item.name}>
-                <span className={`hero__pill hero__pill--${item.tone}`}>{item.name}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="hero__actions" data-reveal style={{ animationDelay: "380ms" }}>
+          <div className="hero__actions" data-reveal style={{ animationDelay: "540ms" }}>
             <a href="/projects" className="hero__btn hero__btn--primary">
               View projects
               <span className="hero__btnArrow" aria-hidden="true">
@@ -362,7 +338,7 @@ export const Hero = () => {
           </div>
         </div>
 
-        <div className="hero__footer" data-reveal style={{ animationDelay: "460ms" }}>
+        <div className="hero__footer" data-reveal style={{ animationDelay: "600ms" }}>
           <dl className="hero__stats">
             {figures.map((figure) => (
               <div key={figure.label} className="hero__stat">
@@ -394,14 +370,19 @@ export const Hero = () => {
         </div>
       </div>
 
-      {/* The visible track is duplicated for a seamless loop, so it is hidden
-          from assistive tech and the sr-only line carries the real content. */}
-      <div className="hero__marquee">
-        <p className="hero__srOnly">What I work on: {MARQUEE.join(", ")}.</p>
-        <div className="hero__track" aria-hidden="true">
-          <MarqueeRun />
-          <MarqueeRun />
-        </div>
+      <div className="hero__band">
+        <p className="hero__bandList">
+          {CAPABILITIES.map((item, index) => (
+            <span key={item} className="hero__bandItem">
+              {item}
+              {index < CAPABILITIES.length - 1 ? (
+                <span className="hero__star" aria-hidden="true">
+                  ✳
+                </span>
+              ) : null}
+            </span>
+          ))}
+        </p>
       </div>
     </section>
   );

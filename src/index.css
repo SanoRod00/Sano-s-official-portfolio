@@ -375,37 +375,40 @@
   --r-pill: 999px;
   --r-circle: 50%;
 
-  /* Shadow scale */
-  --sh-1: 0 1px 2px rgba(26, 23, 20, 0.06);
-  --sh-2: 0 8px 24px -16px rgba(26, 23, 20, 0.28);
-  --sh-3: 0 18px 40px -24px rgba(26, 23, 20, 0.4);
+  /* Shadow scale. Only two remain: one for things that genuinely sit above
+     something (the photo over the accent circle), one for the raised button. */
+  --sh-button: 0 8px 24px -16px rgba(26, 23, 20, 0.28);
+  --sh-lifted: 0 18px 40px -24px rgba(26, 23, 20, 0.4);
 
   /* Type scale: exactly five steps */
-  --t-display: clamp(2rem, 6.4vw, 4.6875rem);
+  --t-display: clamp(2rem, 6.4vw, 4rem);
   --t-lead: clamp(1.0625rem, 1.6vw, 1.375rem);
   --t-body: 1rem;
   --t-label: 0.875rem;
   --t-caption: 0.75rem;
 
-  /* Grid */
-  --container: 68rem;
+  /* Grid. Narrowed from 68rem now that nothing flanks the portrait, so the
+     composition reads as deliberately centred rather than sparse. */
+  --container: 60rem;
   --gutter: var(--sp-6);
 
-  /* Geometry: every circle, arc and orbit derives from this one value */
-  --stage: clamp(272px, 42vw, 440px);
-  --photo-d: calc(var(--stage) * 0.72);
-  --arc-1: calc(var(--stage) * 1.14);
-  --arc-2: calc(var(--stage) * 1.3);
-  --orbit-r: calc(var(--stage) * 0.5 + var(--sp-16));
+  /* Geometry: circle, photo and badge all derive from this one value */
+  --stage: clamp(272px, 38vw, 400px);
+  --photo-d: calc(var(--stage) * 0.78);
+  --badge-d: calc(var(--stage) * 0.28);
+  /* Badge centre rides a ring whose radius clears the circle edge by --sp-6 */
+  --badge-r: calc(var(--stage) * 0.5 + var(--sp-6) + var(--badge-d) * 0.5);
 
-  /* Optical corrections. Deliberately outside the spacing scale: these
-     compensate for a glyph's visual centre, not for layout. */
+  /* Named micro-values, so no bare magic numbers appear in rules below.
+     --optic-* compensate for a glyph's visual centre, not for layout. */
   --optic-1: 1px;
+  --hairline: 1px;
+  --lift: 2px;
 
   --nav-h: 88px;
 
   /* Palette: one accent, four resting uses (circle, name, button arrow,
-     marquee separators) plus the focus ring as a transient state. */
+     band separators) plus the focus ring as a transient state. */
   --cream: #faf7f2;
   --ink: #1a1714;
   --muted: #6b625a;
@@ -430,9 +433,8 @@
   --accent: #ff7a5c;
   --accent-on: #17130f;
   --line: #362e27;
-  --sh-1: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --sh-2: 0 8px 24px -16px rgba(0, 0, 0, 0.6);
-  --sh-3: 0 18px 40px -24px rgba(0, 0, 0, 0.7);
+  --sh-button: 0 8px 24px -16px rgba(0, 0, 0, 0.6);
+  --sh-lifted: 0 18px 40px -24px rgba(0, 0, 0, 0.7);
 }
 
 /* --- Grid ---------------------------------------------------------------- */
@@ -454,28 +456,10 @@
   text-align: center;
 }
 
-/* --- Type ---------------------------------------------------------------- */
-
-.hero__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  margin: 0;
-  font-size: var(--t-label);
-  font-weight: 500;
-  color: var(--muted);
-}
-
-.hero__dash {
-  display: block;
-  width: var(--sp-6);
-  height: 2px;
-  border-radius: var(--r-pill);
-  background: var(--muted);
-}
+/* --- Headline: per-character reveal -------------------------------------- */
 
 .hero__title {
-  margin: var(--sp-3) 0 0;
+  margin: 0;
   font-family: "Syne", "Segoe UI", sans-serif;
   font-weight: 800;
   font-size: var(--t-display);
@@ -484,14 +468,37 @@
   color: var(--ink);
 }
 
-.hero__title em {
-  font-style: normal;
-  color: var(--accent);
-}
-
 @media (min-width: 900px) {
   .hero__title {
     white-space: nowrap;
+  }
+}
+
+/* Words break; characters inside a word never do. */
+.hero__word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Laid out at full width from the first frame, so revealing them shifts
+   nothing. Runs once on mount: there is no scroll trigger and no loop. */
+.hero__char {
+  display: inline-block;
+  animation: hero-char 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero__char--accent {
+  color: var(--accent);
+}
+
+@keyframes hero-char {
+  from {
+    opacity: 0;
+    transform: translateY(var(--sp-2));
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -503,56 +510,36 @@
   color: var(--muted);
 }
 
-/* --- Stage: circle, photo, arcs all share one centre ---------------------- */
+/* --- Stage: circle and photo share one centre ---------------------------- */
 
 .hero__stage {
   position: relative;
   width: var(--stage);
   height: var(--stage);
-  margin: var(--sp-12) auto 0;
+  margin: var(--sp-8) auto 0;
 }
 
-/* Every layer is centred on the stage's centre point by the same rule, so
-   they cannot drift apart. */
 .hero__circle,
-.hero__photo,
-.hero__arc,
-.hero__orbitItem {
+.hero__photo {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.hero__arc {
   border-radius: var(--r-circle);
-  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-}
-
-.hero__arc--1 {
-  width: var(--arc-1);
-  height: var(--arc-1);
-}
-
-.hero__arc--2 {
-  width: var(--arc-2);
-  height: var(--arc-2);
 }
 
 .hero__circle {
   width: var(--stage);
   height: var(--stage);
-  border-radius: var(--r-circle);
   background: var(--accent);
 }
 
 .hero__photo {
   width: var(--photo-d);
   height: var(--photo-d);
-  border-radius: var(--r-circle);
   overflow: hidden;
   background: color-mix(in srgb, var(--ink) 8%, var(--cream));
-  box-shadow: var(--sh-3);
+  box-shadow: var(--sh-lifted);
 }
 
 .hero__photo img {
@@ -562,80 +549,7 @@
   object-position: 50% 12%;
 }
 
-/* --- Orbit: pills placed from computed angle + radius --------------------- */
-
-.hero__orbit {
-  display: none;
-}
-
-@media (min-width: 900px) {
-  .hero__orbit {
-    display: block;
-    position: absolute;
-    inset: 0;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .hero__orbitItem {
-    /* --ox / --oy are written by the component from angle + radius */
-    transform: translate(-50%, -50%) translate(var(--ox), var(--oy));
-    animation: hero-float 7s ease-in-out infinite;
-    animation-delay: var(--float-delay);
-    animation-duration: var(--float-duration);
-  }
-}
-
-.hero__pill {
-  display: inline-flex;
-  align-items: center;
-  border-radius: var(--r-pill);
-  border: 1px solid var(--line);
-  background: color-mix(in srgb, var(--cream) 80%, #fff 20%);
-  padding: var(--sp-2) var(--sp-4);
-  font-size: var(--t-label);
-  font-weight: 600;
-  color: var(--ink);
-  white-space: nowrap;
-  box-shadow: var(--sh-2);
-}
-
-.hero__pill--dark {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--cream);
-}
-
-@keyframes hero-float {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) translate(var(--ox), calc(var(--oy) - var(--sp-1)));
-  }
-  50% {
-    transform: translate(-50%, -50%) translate(var(--ox), calc(var(--oy) + var(--sp-1)));
-  }
-}
-
-/* Mobile fallback: the orbit collapses to a wrapped inline row */
-
-.hero__pillRow {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--sp-2);
-  margin: var(--sp-8) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-@media (min-width: 900px) {
-  .hero__pillRow {
-    display: none;
-  }
-}
-
-/* --- Badge: anchored to the stage's bounding box corner ------------------- */
+/* --- Badge --------------------------------------------------------------- */
 
 .hero__badge {
   display: none;
@@ -648,11 +562,12 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: calc(var(--stage) * 0.28);
-    height: calc(var(--stage) * 0.28);
-    /* sits on the orbit ring at 45deg: the diagonal of the circle's box */
+    width: var(--badge-d);
+    height: var(--badge-d);
+    /* 30deg on the clearance ring: clears the circle radially by --sp-6 and
+       stays inside the stage's vertical span, so it cannot reach the subline. */
     transform: translate(-50%, -50%)
-      translate(calc(var(--orbit-r) * 0.7071), calc(var(--orbit-r) * -0.7071));
+      translate(calc(var(--badge-r) * 0.866), calc(var(--badge-r) * -0.5));
   }
 }
 
@@ -701,7 +616,7 @@
   margin-top: var(--sp-12);
 }
 
-/* Both buttons share one box model so heights and baselines match exactly. */
+/* Both buttons share one box model, so heights and baselines match exactly. */
 .hero__btn {
   display: inline-flex;
   align-items: center;
@@ -709,7 +624,7 @@
   height: var(--sp-12);
   padding: 0 var(--sp-6);
   border-radius: var(--r-pill);
-  border: 1px solid transparent;
+  border: var(--hairline) solid transparent;
   font-size: var(--t-body);
   font-weight: 600;
   line-height: 1;
@@ -721,7 +636,7 @@
   border-color: var(--ink);
   color: var(--cream);
   padding-right: var(--sp-2);
-  box-shadow: var(--sh-2);
+  box-shadow: var(--sh-button);
 }
 
 .hero__btn--ghost {
@@ -731,7 +646,7 @@
 }
 
 .hero__btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(calc(var(--lift) * -1));
 }
 
 .hero__btn--ghost:hover {
@@ -770,13 +685,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--sp-8);
+  gap: var(--sp-4) var(--sp-8);
   margin: 0;
   padding: var(--sp-4) var(--sp-6);
-  border: 1px solid var(--line);
+  border: var(--hairline) solid var(--line);
   border-radius: var(--r-lg);
   background: color-mix(in srgb, var(--cream) 80%, #fff 20%);
-  box-shadow: var(--sh-1);
 }
 
 .hero__socials {
@@ -791,12 +705,12 @@
 
 @media (min-width: 900px) {
   .hero__stats {
-    grid-column: 1 / span 7;
+    grid-column: 1 / span 8;
     justify-content: flex-start;
   }
 
   .hero__socials {
-    grid-column: 10 / span 3;
+    grid-column: 11 / span 2;
     justify-content: flex-end;
   }
 }
@@ -804,15 +718,15 @@
 .hero__stat {
   display: flex;
   flex-direction: column-reverse;
-  min-width: calc(var(--sp-24) + var(--sp-4));
+  min-width: var(--sp-24);
 }
 
 .hero__statValue {
   margin: 0;
   font-family: "Syne", "Segoe UI", sans-serif;
-  font-size: 1.75rem;
+  font-size: var(--t-lead);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.2;
   color: var(--ink);
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
@@ -837,7 +751,7 @@
 
 @media (min-width: 900px) {
   .hero__statNote {
-    grid-column: 1 / span 7;
+    grid-column: 1 / span 8;
     text-align: left;
   }
 }
@@ -848,66 +762,56 @@
   width: var(--sp-12);
   height: var(--sp-12);
   border-radius: var(--r-circle);
-  border: 1px solid var(--line);
+  border: var(--hairline) solid var(--line);
   color: var(--ink);
   transition: transform 180ms ease, background-color 180ms ease, color 180ms ease;
 }
 
 .hero__social:hover {
-  transform: translateY(-2px);
+  transform: translateY(calc(var(--lift) * -1));
   background: var(--ink);
   color: var(--cream);
 }
 
-/* --- Marquee ------------------------------------------------------------- */
+/* --- Capability band (static; replaced the scrolling marquee) ------------- */
 
-.hero__marquee {
+.hero__band {
   position: relative;
   z-index: 1;
   margin-top: var(--sp-24);
-  overflow: hidden;
   background: var(--ink);
-  padding: var(--sp-3) 0;
+  padding: var(--sp-3) var(--gutter);
 }
 
-.dark .hero__marquee {
+.dark .hero__band {
   background: #221b16;
 }
 
-.hero__track {
+.hero__bandList {
   display: flex;
-  width: max-content;
-  animation: hero-marquee 32s linear infinite;
-}
-
-.hero__marquee:hover .hero__track,
-.hero__marquee:focus-within .hero__track {
-  animation-play-state: paused;
-}
-
-.hero__trackRun {
-  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  gap: var(--sp-8);
-  padding-right: var(--sp-8);
+  gap: var(--sp-2) var(--sp-4);
+  max-width: var(--container);
+  margin: 0 auto;
   font-size: var(--t-label);
   font-weight: 600;
   color: var(--cream);
-  white-space: nowrap;
 }
 
-.dark .hero__trackRun {
+.dark .hero__bandList {
   color: #f5efe8;
+}
+
+.hero__bandItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-4);
 }
 
 .hero__star {
   color: var(--accent);
-}
-
-@keyframes hero-marquee {
-  to {
-    transform: translateX(-50%);
-  }
 }
 
 /* --- Load-in ------------------------------------------------------------- */
@@ -924,7 +828,7 @@
 }
 
 .hero [data-reveal] {
-  animation: hero-rise 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: hero-rise 400ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* --- Focus + utilities --------------------------------------------------- */
